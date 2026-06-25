@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import type { RegioRij } from '../cbs'
 
-type Kolom = 'regio' | 'totaal' | 'bijstand' | 'arbeidsongeschikt' | 'aandeelAO'
+type Kolom = 'regio' | 'totaal' | 'per1000' | 'bijstand' | 'bijstandPer1000' | 'ww' | 'wwPer1000' | 'arbeidsongeschikt' | 'aoPer1000' | 'aandeelAO'
 
 export function RegioTabel({ data }: { data: RegioRij[] }) {
   const [sortKey, setSortKey] = useState<Kolom>('totaal')
@@ -44,18 +44,35 @@ export function RegioTabel({ data }: { data: RegioRij[] }) {
           <tr className="border-b border-slate-200">
             <Th k="regio" label="Provincie" />
             <Th k="totaal" label="Uitkeringen (< AOW)" rechts />
+            <Th k="per1000" label="Per 1.000 inw." rechts />
             <Th k="bijstand" label="Bijstand" rechts />
+            <Th k="bijstandPer1000" label="/ 1.000 inw." rechts />
+            <Th k="ww" label="WW" rechts />
+            <Th k="wwPer1000" label="/ 1.000 inw." rechts />
             <Th k="arbeidsongeschikt" label="Arbeidsongeschikt" rechts />
+            <Th k="aoPer1000" label="/ 1.000 inw." rechts />
             <Th k="aandeelAO" label="Aandeel AO" rechts />
           </tr>
         </thead>
         <tbody>
           {rijen.map((r) => (
-            <tr key={r.regio} className="border-b border-slate-100 hover:bg-slate-50">
-              <td className="px-3 py-3 font-medium text-slate-800">{r.regio}</td>
+            <tr
+              key={r.regio}
+              className={`border-b hover:bg-slate-50 ${
+                r.regio === 'Heel Nederland' ? 'bg-slate-100/80 border-slate-300 shadow-sm z-10 relative' : 'border-slate-100'
+              }`}
+            >
+              <td className={`px-3 py-3 text-slate-800 ${r.regio === 'Heel Nederland' ? 'font-bold' : 'font-medium'}`}>
+                {r.regio}
+              </td>
               <td className="px-3 py-3 text-right tabular-nums text-slate-600">{getal(r.totaal)}</td>
+              <td className="px-3 py-3 text-right tabular-nums text-slate-500 bg-slate-50/50">{r.per1000 > 0 ? r.per1000.toLocaleString('nl-NL', {minimumFractionDigits: 1}) : '-'}</td>
               <td className="px-3 py-3 text-right tabular-nums text-slate-600">{getal(r.bijstand)}</td>
+              <td className="px-3 py-3 text-right tabular-nums text-slate-500 bg-slate-50/50">{r.bijstandPer1000 > 0 ? r.bijstandPer1000.toLocaleString('nl-NL', {minimumFractionDigits: 1}) : '-'}</td>
+              <td className="px-3 py-3 text-right tabular-nums text-slate-600">{getal(r.ww)}</td>
+              <td className="px-3 py-3 text-right tabular-nums text-slate-500 bg-slate-50/50">{r.wwPer1000 > 0 ? r.wwPer1000.toLocaleString('nl-NL', {minimumFractionDigits: 1}) : '-'}</td>
               <td className="px-3 py-3 text-right tabular-nums text-slate-600">{getal(r.arbeidsongeschikt)}</td>
+              <td className="px-3 py-3 text-right tabular-nums text-slate-500 bg-slate-50/50">{r.aoPer1000 > 0 ? r.aoPer1000.toLocaleString('nl-NL', {minimumFractionDigits: 1}) : '-'}</td>
               <td className="px-3 py-3 text-right">
                 <span
                   className={`rounded-full px-2 py-0.5 text-xs font-semibold ${

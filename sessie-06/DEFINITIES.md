@@ -106,9 +106,16 @@ provincies**, niet de 35 arbeidsmarktregio's uit de demo):
 |-------|-----------|----------|
 | **Provincie** | Een van de 12 provincies. | `RegioS` (PV-codes) |
 | **Uitkeringen (< AOW)** | Aantal uitkeringsontvangers onder de AOW-leeftijd. | `TotDeAOWLeeftijd` |
-| **Bijstand** | Bijstand(gerelateerd) tot de AOW-leeftijd. | `BijstandTotDeAOWLeeftijd` |
+| **Per 1.000 inw.** | Aantal uitkeringsontvangers per duizend inwoners (gehele bevolking) in de regio. | Berekend m.b.v. tabel `37230ned` |
+| **Bijstand** | Bijstand (Participatiewet) tot de AOW-leeftijd. | `BijstandTotDeAOWLeeftijd` |
+| **WW** | Werkloosheidsuitkering. | `Werkloosheid` |
 | **Arbeidsongeschikt** | Totaal arbeidsongeschiktheidsuitkeringen (WAO + WIA + Wajong). | `ArbeidsongeschiktheidTotaal` |
 | **Aandeel AO** | Afgeleid: arbeidsongeschikt ÷ totaal (< AOW). Kleur: groen < 45%, oranje 45–54%, rood ≥ 55%. | berekend |
+
+> **Let op bij het optellen:** De som van Bijstand + WW + Arbeidsongeschikt komt niet exact uit op "Uitkeringen (< AOW)".
+> Dit heeft twee redenen:
+> 1. **Samenloop:** Het totaal telt *unieke personen*. Iemand met twee uitkeringen (bijv. WIA én WW) telt in het totaal 1x mee, maar staat in 2 kolommen.
+> 2. **Bijstandsgerelateerde regelingen:** Regelingen zoals IOAW, IOAZ en Bbz zitten wél in het totale cijfer, maar niet in de specifieke kolom "Bijstand" (Participatiewet).
 
 > **Arbeidsmarktregio** (demo) = een van de 35 regio's waarin gemeenten en UWV
 > samenwerken aan arbeidsbemiddeling. In de echte CBS-versie zijn dit de 12 provincies.

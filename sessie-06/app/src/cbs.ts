@@ -46,8 +46,13 @@ export interface FlowPunt {
 export interface RegioRij {
   regio: string
   totaal: number
+  per1000: number
   bijstand: number
+  bijstandPer1000: number
+  ww: number
+  wwPer1000: number
   arbeidsongeschikt: number
+  aoPer1000: number
   wajong: number
   aandeelAO: number // % van totaal dat arbeidsongeschikt is
 }
@@ -101,6 +106,7 @@ const PROVINCIES: Record<string, string> = {
   PV20: 'Groningen', PV21: 'Fryslân', PV22: 'Drenthe', PV23: 'Overijssel',
   PV24: 'Flevoland', PV25: 'Gelderland', PV26: 'Utrecht', PV27: 'Noord-Holland',
   PV28: 'Zuid-Holland', PV29: 'Zeeland', PV30: 'Noord-Brabant', PV31: 'Limburg',
+  NL01: 'Heel Nederland',
 }
 
 async function haal(url: string): Promise<any[]> {
@@ -203,19 +209,36 @@ export async function haalDashboardData(): Promise<DashboardData> {
   // Provinciecijfers voor de laatste beschikbare periode
   const laatstePeriodeRegio = periodenRows[periodenRows.length - 1].Key.trim()
   const peilmaandRegio = labelVol(laatstePeriodeRegio)
-  const regioFilter = encodeURIComponent(`Perioden eq '${laatstePeriodeRegio}' and substringof('PV',RegioS)`)
+  const regioFilter = encodeURIComponent(`Perioden eq '${laatstePeriodeRegio}' and (substringof('PV',RegioS) or substringof('NL01',RegioS))`)
   const regioSelect = 'RegioS,TotDeAOWLeeftijd_2,Werkloosheid_4,BijstandTotDeAOWLeeftijd_7,ArbeidsongeschiktheidTotaal_8,WajongUitkering_11'
-  const regioRows = await haal(`${BASE}/80794ned/TypedDataSet?${f}&%24filter=${regioFilter}&%24select=${regioSelect}`)
+  
+  const [regioRows, bevolkingRows] = await Promise.all([
+    haal(`${BASE}/80794ned/TypedDataSet?${f}&%24filter=${regioFilter}&%24select=${regioSelect}`),
+    haal(`${BASE}/37230ned/TypedDataSet?${f}&%24filter=${regioFilter}&%24select=RegioS,BevolkingAanHetEindeVanDePeriode_15`).catch(() => [])
+  ])
+
+  const bevolkingMap = Object.fromEntries(bevolkingRows.map(r => [r.RegioS.trim(), r.BevolkingAanHetEindeVanDePeriode_15]))
 
   const regios: RegioRij[] = regioRows
     .map((r) => {
       const totaal = r.TotDeAOWLeeftijd_2 ?? 0
       const arbeidsongeschikt = r.ArbeidsongeschiktheidTotaal_8 ?? 0
+      const populatie = bevolkingMap[r.RegioS.trim()] || 0
+      const bijstand = r.BijstandTotDeAOWLeeftijd_7 ?? 0
+      const ww = r.Werkloosheid_4 ?? 0
+      
+      const ratio = (val: number) => populatie ? Math.round((val / populatie) * 10000) / 10 : 0
+
       return {
         regio: PROVINCIES[r.RegioS.trim()] ?? r.RegioS.trim(),
         totaal,
-        bijstand: r.BijstandTotDeAOWLeeftijd_7 ?? 0,
+        per1000: ratio(totaal),
+        bijstand,
+        bijstandPer1000: ratio(bijstand),
+        ww,
+        wwPer1000: ratio(ww),
         arbeidsongeschikt,
+        aoPer1000: ratio(arbeidsongeschikt),
         wajong: r.WajongUitkering_11 ?? 0,
         aandeelAO: totaal ? Math.round((arbeidsongeschikt / totaal) * 100) : 0,
       }
