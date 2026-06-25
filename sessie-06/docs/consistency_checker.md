@@ -1,10 +1,10 @@
 # Interne Consistency Checker
 
-Dit document beschrijft het proces om de interne consistentie van het Inclusie Dashboard te bewaken. Het project wordt geëvalueerd door een virtueel team van drie expertrollen. Deze rollen vullen elkaar aan om te zorgen dat de code, data, en de verhaallijn 100% met elkaar in balans zijn.
+Dit document beschrijft het proces om de interne consistentie van het Inclusie Dashboard te bewaken. Het project wordt geëvalueerd door een virtueel team van vier expertrollen. Deze rollen vullen elkaar aan om te zorgen dat de code, data, de visuele flow en de verhaallijn 100% met elkaar in balans zijn.
 
 ## Het Expertteam
 
-De check wordt uitgevoerd door de volgende drie rollen:
+De check wordt uitgevoerd door de volgende vier rollen:
 
 1. 🏗️ **[Senior Code & Architecture Reviewer](./rol_architect.md)** 
    Bewaakt de technische flow, code hygiëne en controleert of de implementatie de `ARCHITECTUUR.md` volgt.
@@ -12,6 +12,8 @@ De check wordt uitgevoerd door de volgende drie rollen:
    Verifieert of berekeningen accuraat zijn, edge-cases worden afgevangen en of dit overeenkomt met `DEFINITIES.md`.
 3. 📖 **[Senior Verhalenverteller](./rol_verhalenverteller.md)** 
    Kijkt door de ogen van de eindgebruiker. Zorgt ervoor dat UI-labels logisch zijn en het narratief uit `VERHAALLIJN.md` waarmaken.
+4. 🎨 **[Senior UX Specialist](./rol_ux_specialist.md)** 
+   Bewaakt de visuele rust, de toegankelijkheid (kleuren/contrast) en de intuïtieve interactie van het dashboard.
 
 *(Klik op de links hierboven voor de volledige briefing per rol).*
 
@@ -22,7 +24,7 @@ De check wordt uitgevoerd door de volgende drie rollen:
 Wanneer je een (AI) agent of sub-agent de opdracht geeft om een Consistency Check te doen, doorlopen zij het volgende proces:
 
 ### 1. Individuele Evaluatie
-De drie experts bekijken de actuele codebase en de documentatie (`docs/`) vanuit hun eigen specifieke focusgebied. Ze doen onafhankelijk van elkaar onderzoek (lezen bestanden in, controleren npm-scripts) en trekken hun eigen conclusies.
+De vier experts bekijken de actuele codebase en de documentatie (`docs/`) vanuit hun eigen specifieke focusgebied. Ze doen onafhankelijk van elkaar onderzoek (lezen bestanden in, controleren npm-scripts) en trekken hun eigen conclusies.
 
 ### 2. De Groepsdynamiek (Samenwerking)
 Nadat ze individueel hebben gekeken, leggen de experts hun bevindingen naast elkaar. Ze zijn getraind om overlappende problemen op te lossen. Voorbeelden van hun groepsdynamiek:
