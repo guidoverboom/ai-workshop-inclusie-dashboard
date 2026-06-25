@@ -1,4 +1,4 @@
-import type { Signaal } from '../cbs'
+import type { Signaal } from '../../types'
 
 const stijl: Record<Signaal['niveau'], { rand: string; badge: string; label: string }> = {
   urgent: { rand: 'border-l-red-500', badge: 'bg-red-100 text-red-700', label: 'Urgent' },

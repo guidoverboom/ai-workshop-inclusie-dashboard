@@ -9,7 +9,7 @@ import {
   Tooltip,
   Legend,
 } from 'recharts'
-import type { FlowPunt } from '../cbs'
+import type { FlowPunt } from '../../types'
 
 // Saldo (instroom - uitstroom) als lijn erbovenop: positief = bestand groeit.
 type Rij = FlowPunt & { saldo: number }
@@ -25,7 +25,7 @@ export function FlowChart({ data }: { data: FlowPunt[] }) {
           <XAxis dataKey="kwartaal" tick={{ fontSize: 12, fill: '#64748b' }} />
           <YAxis tick={{ fontSize: 12, fill: '#64748b' }} />
           <Tooltip
-            formatter={(v: number, n: string) => [v.toLocaleString('nl-NL'), n]}
+            formatter={(v: any, n: any) => [v.toLocaleString('nl-NL'), n]}
             contentStyle={{ borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13 }}
           />
           <Legend wrapperStyle={{ fontSize: 13 }} />

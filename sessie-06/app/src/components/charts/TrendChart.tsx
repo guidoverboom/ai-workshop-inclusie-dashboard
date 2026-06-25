@@ -8,7 +8,7 @@ import {
   Tooltip,
   Legend,
 } from 'recharts'
-import type { TrendPunt } from '../cbs'
+import type { TrendPunt } from '../../types'
 
 const lijnen: { key: keyof TrendPunt; naam: string; kleur: string }[] = [
   { key: 'wia', naam: 'WIA', kleur: '#3b82f6' },
@@ -27,7 +27,7 @@ export function TrendChart({ data }: { data: TrendPunt[] }) {
           <XAxis dataKey="maand" tick={{ fontSize: 12, fill: '#64748b' }} />
           <YAxis tick={{ fontSize: 12, fill: '#64748b' }} />
           <Tooltip
-            formatter={(v: number, n: string) => [`${v.toLocaleString('nl-NL')} dzd`, n]}
+            formatter={(v: any, n: any) => [`${v.toLocaleString('nl-NL')} dzd`, n]}
             contentStyle={{ borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13 }}
           />
           <Legend wrapperStyle={{ fontSize: 13 }} />

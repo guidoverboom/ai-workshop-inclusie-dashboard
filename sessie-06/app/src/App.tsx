@@ -1,22 +1,15 @@
-import { useEffect, useState } from 'react'
-import { haalDashboardData, type DashboardData } from './cbs'
-import { KpiCard } from './components/KpiCard'
-import { SignalenPanel } from './components/SignalenPanel'
-import { TrendChart } from './components/TrendChart'
-import { FlowChart } from './components/FlowChart'
-import { Donut } from './components/Donut'
-import { StaafVerdeling } from './components/StaafVerdeling'
-import { RegioTabel } from './components/RegioTabel'
+import { useDashboardData } from './hooks/useDashboardData'
+import { KpiCard } from './components/layout/KpiCard'
+import { SignalenPanel } from './components/layout/SignalenPanel'
+import { TrendChart } from './components/charts/TrendChart'
+import { FlowChart } from './components/charts/FlowChart'
+import { Donut } from './components/charts/Donut'
+import { StaafVerdeling } from './components/charts/StaafVerdeling'
+import { RegioTabel } from './components/tables/RegioTabel'
 
 function App() {
-  const [data, setData] = useState<DashboardData | null>(null)
-  const [fout, setFout] = useState<string | null>(null)
-
-  useEffect(() => {
-    haalDashboardData()
-      .then(setData)
-      .catch((e) => setFout(e instanceof Error ? e.message : 'Onbekende fout'))
-  }, [])
+  const { data, error, loading } = useDashboardData()
+  const fout = error ? error.message : null
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -59,7 +52,7 @@ function App() {
           </div>
         )}
 
-        {!data && !fout && <Laadscherm />}
+        {loading && !fout && <Laadscherm />}
 
         {data && (
           <>

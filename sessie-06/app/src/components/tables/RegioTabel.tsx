@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import type { RegioRij } from '../cbs'
+import type { RegioRij } from '../../types'
 
 type Kolom = 'regio' | 'totaal' | 'per1000' | 'bijstand' | 'bijstandPer1000' | 'ww' | 'wwPer1000' | 'arbeidsongeschikt' | 'aoPer1000' | 'aandeelAO'
 

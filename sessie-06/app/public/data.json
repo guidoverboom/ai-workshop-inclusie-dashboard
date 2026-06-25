@@ -1,0 +1,497 @@
+{
+  "peilmaandSoort": "maart 2026",
+  "peilmaandRegio": "december 2025",
+  "peilkwartaalFlow": "2025 kwartaal 4",
+  "kpis": [
+    {
+      "id": "bijstand",
+      "label": "Bijstand (< AOW-leeftijd)",
+      "waarde": 347000,
+      "vorigePeriode": 346000,
+      "eenheid": "",
+      "richting": "slecht",
+      "toelichting": "Mensen in de Participatiewet onder de AOW-leeftijd. Bron: CBS 37789ksz."
+    },
+    {
+      "id": "ww",
+      "label": "WW-uitkeringen",
+      "waarde": 202100,
+      "vorigePeriode": 205500,
+      "eenheid": "",
+      "richting": "slecht",
+      "toelichting": "Lopende werkloosheidsuitkeringen (conjunctuurgevoelig). Bron: CBS 37789ksz."
+    },
+    {
+      "id": "wajong",
+      "label": "Wajong (jonggehandicapten)",
+      "waarde": 248200,
+      "vorigePeriode": 248200,
+      "eenheid": "",
+      "richting": "slecht",
+      "toelichting": "Jongeren met een arbeidsbeperking — kern van de inclusieve arbeidsmarkt. Bron: CBS 37789ksz."
+    },
+    {
+      "id": "ao",
+      "label": "Arbeidsongeschiktheid totaal",
+      "waarde": 873400,
+      "vorigePeriode": 872100,
+      "eenheid": "",
+      "richting": "slecht",
+      "toelichting": "WIA + WAO + Wajong samen. Bron: CBS 37789ksz."
+    }
+  ],
+  "trend": [
+    {
+      "maand": "jan '25",
+      "bijstand": 344.4,
+      "ww": 189.4,
+      "wajong": 246.8,
+      "wia": 457.1,
+      "wao": 150.9
+    },
+    {
+      "maand": "feb '25",
+      "bijstand": 345.1,
+      "ww": 189.6,
+      "wajong": 246.9,
+      "wia": 459.5,
+      "wao": 149.6
+    },
+    {
+      "maand": "mrt '25",
+      "bijstand": 345.9,
+      "ww": 189.5,
+      "wajong": 246.9,
+      "wia": 462,
+      "wao": 148.2
+    },
+    {
+      "maand": "apr '25",
+      "bijstand": 346.3,
+      "ww": 184.2,
+      "wajong": 247.1,
+      "wia": 463.8,
+      "wao": 146.7
+    },
+    {
+      "maand": "mei '25",
+      "bijstand": 346.5,
+      "ww": 186.6,
+      "wajong": 247.2,
+      "wia": 465.7,
+      "wao": 145.4
+    },
+    {
+      "maand": "jun '25",
+      "bijstand": 346.5,
+      "ww": 183.6,
+      "wajong": 247.3,
+      "wia": 467.8,
+      "wao": 144.3
+    },
+    {
+      "maand": "jul '25",
+      "bijstand": 346.4,
+      "ww": 187.7,
+      "wajong": 247.5,
+      "wia": 469.9,
+      "wao": 143.1
+    },
+    {
+      "maand": "aug '25",
+      "bijstand": 345.3,
+      "ww": 187.4,
+      "wajong": 247.6,
+      "wia": 471.7,
+      "wao": 141.9
+    },
+    {
+      "maand": "sep '25",
+      "bijstand": 344.4,
+      "ww": 187.4,
+      "wajong": 247.7,
+      "wia": 475,
+      "wao": 140.6
+    },
+    {
+      "maand": "okt '25",
+      "bijstand": 344.6,
+      "ww": 195.4,
+      "wajong": 247.9,
+      "wia": 478.7,
+      "wao": 139.4
+    },
+    {
+      "maand": "nov '25",
+      "bijstand": 345.3,
+      "ww": 194.1,
+      "wajong": 248,
+      "wia": 481.5,
+      "wao": 138.3
+    },
+    {
+      "maand": "dec '25",
+      "bijstand": 346.8,
+      "ww": 191.5,
+      "wajong": 248.2,
+      "wia": 483.8,
+      "wao": 137.1
+    },
+    {
+      "maand": "jan '26",
+      "bijstand": 346,
+      "ww": 205.7,
+      "wajong": 248.2,
+      "wia": 486.7,
+      "wao": 135.7
+    },
+    {
+      "maand": "feb '26",
+      "bijstand": 346,
+      "ww": 205.5,
+      "wajong": 248.2,
+      "wia": 489.5,
+      "wao": 134.4
+    },
+    {
+      "maand": "mrt '26",
+      "bijstand": 347,
+      "ww": 202.1,
+      "wajong": 248.2,
+      "wia": 492.1,
+      "wao": 133.1
+    }
+  ],
+  "bijstandFlow": [
+    {
+      "kwartaal": "K01 '23",
+      "instroom": 21450,
+      "uitstroom": 18180
+    },
+    {
+      "kwartaal": "K02 '23",
+      "instroom": 19450,
+      "uitstroom": 17370
+    },
+    {
+      "kwartaal": "K03 '23",
+      "instroom": 20940,
+      "uitstroom": 20240
+    },
+    {
+      "kwartaal": "K04 '23",
+      "instroom": 21720,
+      "uitstroom": 16780
+    },
+    {
+      "kwartaal": "K01 '24",
+      "instroom": 22100,
+      "uitstroom": 17890
+    },
+    {
+      "kwartaal": "K02 '24",
+      "instroom": 20670,
+      "uitstroom": 17390
+    },
+    {
+      "kwartaal": "K03 '24",
+      "instroom": 21520,
+      "uitstroom": 20420
+    },
+    {
+      "kwartaal": "K04 '24",
+      "instroom": 21700,
+      "uitstroom": 16880
+    },
+    {
+      "kwartaal": "K01 '25",
+      "instroom": 22860,
+      "uitstroom": 17900
+    },
+    {
+      "kwartaal": "K02 '25",
+      "instroom": 20610,
+      "uitstroom": 17340
+    },
+    {
+      "kwartaal": "K03 '25",
+      "instroom": 22120,
+      "uitstroom": 21230
+    },
+    {
+      "kwartaal": "K04 '25",
+      "instroom": 22730,
+      "uitstroom": 17440
+    }
+  ],
+  "soortVerdeling": [
+    {
+      "naam": "Bijstand",
+      "aantal": 347,
+      "kleur": "#154273"
+    },
+    {
+      "naam": "WW",
+      "aantal": 202.1,
+      "kleur": "#f59e0b"
+    },
+    {
+      "naam": "Wajong",
+      "aantal": 248.2,
+      "kleur": "#10b981"
+    },
+    {
+      "naam": "WIA",
+      "aantal": 492.1,
+      "kleur": "#3b82f6"
+    },
+    {
+      "naam": "WAO",
+      "aantal": 133.1,
+      "kleur": "#94a3b8"
+    }
+  ],
+  "aoRegeling": [
+    {
+      "naam": "WIA · WGA",
+      "aantal": 301.3,
+      "kleur": "#3b82f6"
+    },
+    {
+      "naam": "WIA · IVA",
+      "aantal": 190.9,
+      "kleur": "#60a5fa"
+    },
+    {
+      "naam": "WAO",
+      "aantal": 133.1,
+      "kleur": "#94a3b8"
+    },
+    {
+      "naam": "Wajong",
+      "aantal": 248.2,
+      "kleur": "#10b981"
+    }
+  ],
+  "regios": [
+    {
+      "regio": "Heel Nederland",
+      "totaal": 1428360,
+      "per1000": 78.8,
+      "bijstand": 410070,
+      "bijstandPer1000": 22.6,
+      "ww": 177370,
+      "wwPer1000": 9.8,
+      "arbeidsongeschikt": 826890,
+      "aoPer1000": 45.6,
+      "wajong": 227150,
+      "aandeelAO": 58
+    },
+    {
+      "regio": "Groningen",
+      "totaal": 55580,
+      "per1000": 92.4,
+      "bijstand": 18390,
+      "bijstandPer1000": 30.6,
+      "ww": 5380,
+      "wwPer1000": 8.9,
+      "arbeidsongeschikt": 31370,
+      "aoPer1000": 52.2,
+      "wajong": 11160,
+      "aandeelAO": 56
+    },
+    {
+      "regio": "Fryslân",
+      "totaal": 52270,
+      "per1000": 78.6,
+      "bijstand": 16920,
+      "bijstandPer1000": 25.4,
+      "ww": 6370,
+      "wwPer1000": 9.6,
+      "arbeidsongeschikt": 28370,
+      "aoPer1000": 42.6,
+      "wajong": 10690,
+      "aandeelAO": 54
+    },
+    {
+      "regio": "Drenthe",
+      "totaal": 42250,
+      "per1000": 83.2,
+      "bijstand": 10390,
+      "bijstandPer1000": 20.5,
+      "ww": 4790,
+      "wwPer1000": 9.4,
+      "arbeidsongeschikt": 26610,
+      "aoPer1000": 52.4,
+      "wajong": 8400,
+      "aandeelAO": 63
+    },
+    {
+      "regio": "Overijssel",
+      "totaal": 96510,
+      "per1000": 80.3,
+      "bijstand": 26180,
+      "bijstandPer1000": 21.8,
+      "ww": 10900,
+      "wwPer1000": 9.1,
+      "arbeidsongeschikt": 58990,
+      "aoPer1000": 49.1,
+      "wajong": 19990,
+      "aandeelAO": 61
+    },
+    {
+      "regio": "Flevoland",
+      "totaal": 35110,
+      "per1000": 75.9,
+      "bijstand": 9530,
+      "bijstandPer1000": 20.6,
+      "ww": 4820,
+      "wwPer1000": 10.4,
+      "arbeidsongeschikt": 20330,
+      "aoPer1000": 43.9,
+      "wajong": 5410,
+      "aandeelAO": 58
+    },
+    {
+      "regio": "Gelderland",
+      "totaal": 163100,
+      "per1000": 75,
+      "bijstand": 43170,
+      "bijstandPer1000": 19.9,
+      "ww": 18280,
+      "wwPer1000": 8.4,
+      "arbeidsongeschikt": 100350,
+      "aoPer1000": 46.2,
+      "wajong": 32490,
+      "aandeelAO": 62
+    },
+    {
+      "regio": "Utrecht",
+      "totaal": 97000,
+      "per1000": 68.5,
+      "bijstand": 27290,
+      "bijstandPer1000": 19.3,
+      "ww": 12670,
+      "wwPer1000": 9,
+      "arbeidsongeschikt": 56380,
+      "aoPer1000": 39.8,
+      "wajong": 14400,
+      "aandeelAO": 58
+    },
+    {
+      "regio": "Noord-Holland",
+      "totaal": 230750,
+      "per1000": 76.7,
+      "bijstand": 70310,
+      "bijstandPer1000": 23.4,
+      "ww": 31650,
+      "wwPer1000": 10.5,
+      "arbeidsongeschikt": 124480,
+      "aoPer1000": 41.4,
+      "wajong": 31560,
+      "aandeelAO": 54
+    },
+    {
+      "regio": "Zuid-Holland",
+      "totaal": 296200,
+      "per1000": 76.3,
+      "bijstand": 105720,
+      "bijstandPer1000": 27.2,
+      "ww": 36120,
+      "wwPer1000": 9.3,
+      "arbeidsongeschikt": 149730,
+      "aoPer1000": 38.6,
+      "wajong": 41740,
+      "aandeelAO": 51
+    },
+    {
+      "regio": "Zeeland",
+      "totaal": 27030,
+      "per1000": 68.5,
+      "bijstand": 7130,
+      "bijstandPer1000": 18.1,
+      "ww": 3010,
+      "wwPer1000": 7.6,
+      "arbeidsongeschikt": 16850,
+      "aoPer1000": 42.7,
+      "wajong": 4440,
+      "aandeelAO": 62
+    },
+    {
+      "regio": "Noord-Brabant",
+      "totaal": 193700,
+      "per1000": 72.4,
+      "bijstand": 49460,
+      "bijstandPer1000": 18.5,
+      "ww": 26830,
+      "wwPer1000": 10,
+      "arbeidsongeschikt": 116660,
+      "aoPer1000": 43.6,
+      "wajong": 29180,
+      "aandeelAO": 60
+    },
+    {
+      "regio": "Limburg",
+      "totaal": 106080,
+      "per1000": 93.2,
+      "bijstand": 25410,
+      "bijstandPer1000": 22.3,
+      "ww": 12350,
+      "wwPer1000": 10.8,
+      "arbeidsongeschikt": 68500,
+      "aoPer1000": 60.2,
+      "wajong": 17000,
+      "aandeelAO": 65
+    }
+  ],
+  "signalen": [
+    {
+      "id": "flow",
+      "niveau": "aandacht",
+      "titel": "Bijstand: meer in- dan uitstroom",
+      "beschrijving": "Laatste kwartaal stroomden 22.730 mensen de bijstand in en 17.440 eruit (saldo +5.290). Het bestand groeit.",
+      "regio": "Landelijk",
+      "actie": "Uitstroom naar werk versnellen om de groei te keren."
+    },
+    {
+      "id": "ww",
+      "niveau": "kans",
+      "titel": "WW-uitkeringen dalen",
+      "beschrijving": "Het aantal WW-uitkeringen daalde de laatste maand met 1.7% (nu ± 202 duizend).",
+      "regio": "Landelijk",
+      "actie": "Gunstig moment om langdurig werkzoekenden te plaatsen."
+    },
+    {
+      "id": "wia",
+      "niveau": "aandacht",
+      "titel": "WIA blijft oplopen",
+      "beschrijving": "Over de getoonde periode steeg het aantal WIA-uitkeringen met 7.7%.",
+      "regio": "Landelijk",
+      "actie": "Inzetten op behoud van werk en preventie van uitval."
+    },
+    {
+      "id": "bijstand",
+      "niveau": "kans",
+      "titel": "Bijstand licht gestegen",
+      "beschrijving": "De bijstand (< AOW) nam toe met 0.3% t.o.v. de maand ervoor.",
+      "regio": "Landelijk",
+      "actie": "Re-integratiecapaciteit op peil houden."
+    },
+    {
+      "id": "regio-ao",
+      "niveau": "aandacht",
+      "titel": "Hoog aandeel arbeidsongeschiktheid: Limburg",
+      "beschrijving": "In Limburg is 65% van de uitkeringen (< AOW) een arbeidsongeschiktheidsuitkering — het hoogste van alle provincies.",
+      "regio": "Limburg",
+      "actie": "Onderzoek oorzaken (bv. sectorstructuur) en zet in op aangepast werk."
+    },
+    {
+      "id": "regio-totaal",
+      "niveau": "kans",
+      "titel": "Grootste opgave: Zuid-Holland",
+      "beschrijving": "Zuid-Holland telt de meeste uitkeringen (< AOW): ± 296.200 personen.",
+      "regio": "Zuid-Holland",
+      "actie": "Schaalvoordeel benutten met regionale werkgeversafspraken."
+    }
+  ]
+}

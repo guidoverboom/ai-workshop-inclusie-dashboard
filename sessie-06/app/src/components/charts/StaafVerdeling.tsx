@@ -8,7 +8,7 @@ import {
   Tooltip,
   Cell,
 } from 'recharts'
-import type { Verdeling } from '../cbs'
+import type { Verdeling } from '../../types'
 
 export function StaafVerdeling({ data, eenheid }: { data: Verdeling[]; eenheid?: string }) {
   return (
@@ -24,7 +24,7 @@ export function StaafVerdeling({ data, eenheid }: { data: Verdeling[]; eenheid?:
             tick={{ fontSize: 12, fill: '#475569' }}
           />
           <Tooltip
-            formatter={(v: number) => [`${v.toLocaleString('nl-NL')} ${eenheid ?? ''}`.trim(), 'Aantal']}
+            formatter={(v: any) => [`${v.toLocaleString('nl-NL')} ${eenheid ?? ''}`.trim(), 'Aantal']}
             contentStyle={{ borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13 }}
           />
           <Bar dataKey="aantal" radius={[0, 6, 6, 0]}>

@@ -1,82 +1,83 @@
 # Architectuur — Dashboard Inclusieve Arbeidsmarkt
 
 Een **signaaldashboard** dat ontwikkelingen rond uitkeringen, arbeidsongeschiktheid en
-regionale verschillen in één oogopslag zichtbaar maakt. Het is een puur front-end app
-die **live, echte cijfers** ophaalt bij **CBS StatLine Open Data** — geen backend of
-database nodig. Beleidsmakers en uitvoerders zien zo direct waar actie nodig of mogelijk is.
+regionale verschillen in één oogopslag zichtbaar maakt.
+
+Sinds de refactor in Sessie 06 is de architectuur gewijzigd om de prestaties en schaalbaarheid te verbeteren. De API calls worden nu gebouwd op *build time* (of periodiek via een script) in plaats van *runtime* in de browser van de gebruiker.
 
 ## Architectuur
 
 ```mermaid
 flowchart LR
-    Gebruiker -->|opent in browser| Browser
-    Browser -->|fetch CORS| CBS[("CBS StatLine<br/>Open Data API<br/>37789ksz · 80794ned · 85615NED")]
+    subgraph Data Pipeline ["Node.js Pipeline (build-time)"]
+        FetchData["scripts/fetch-data.js"]
+        CBS[("CBS StatLine Open Data<br/>37789ksz · 80794ned · 85615NED")]
+        DataJson["app/public/data.json"]
 
-    subgraph Browser["Browser — React + Vite (:5176)"]
-        App["App.tsx<br/>laadt & verdeelt data"]
-        Cbs["cbs.ts<br/>ophalen + afleiden"]
-        KPI[KPI-kaarten]
-        Trend[Trendgrafiek]
-        Signalen["Signalenpaneel<br/>afgeleid uit cijfers"]
-        Verdeling[Donut + staafgrafiek]
-        Tabel["Provincietabel<br/>sorteerbaar"]
+        FetchData -->|GET| CBS
+        CBS -->|JSON| FetchData
+        FetchData -->|genereert| DataJson
     end
 
-    CBS --> Cbs --> App
-    App --> KPI & Trend & Signalen & Verdeling & Tabel
-    KPI & Trend & Verdeling & Tabel -->|render| Recharts[("Recharts<br/>grafieken")]
+    subgraph Browser ["Browser — React + Vite"]
+        Gebruiker -->|opent in browser| App
+        App["App.tsx<br/>laadt & verdeelt data"]
+        Client["api/client.ts<br/>useDashboardData()"]
+        KPI[KPI-kaarten]
+        Trend[Trend & Flow grafieken]
+        Signalen["Signalenpaneel"]
+        Verdeling[Donut + staafgrafiek]
+        Tabel["Provincietabel"]
+
+        App --> Client
+        Client -->|fetch| DataJson
+        App --> KPI & Trend & Signalen & Verdeling & Tabel
+        KPI & Trend & Verdeling & Tabel -->|render| Recharts[("Recharts<br/>grafieken")]
+    end
 ```
 
-Er is bewust **geen eigen backend, AI of database**: CBS levert de data via een
-CORS-API die de browser rechtstreeks mag aanroepen. Dat houdt de stack zo eenvoudig
-mogelijk én alle cijfers zijn echt en herleidbaar (zie `DEFINITIES.md`).
+Er is bewust **geen eigen backend of actieve database**: CBS levert de data, en we gebruiken een eenvoudig script om deze statisch vast te leggen. Dat houdt de stack zo eenvoudig mogelijk, maakt de frontend bliksemsnel, en zorgt dat we niet tegen CORS-problemen of API-limits van de client browser aanlopen.
 
-## Datastroom — wat gebeurt er als je het dashboard opent
+## Datastroom
 
-```mermaid
-sequenceDiagram
-    participant G as Gebruiker
-    participant A as App.tsx
-    participant C as cbs.ts
-    participant CBS as CBS Open Data
-    participant R as Recharts
-
-    G->>A: opent http://localhost:5176
-    A->>C: haalDashboardData()
-    C->>CBS: GET 37789ksz (maandreeks per soort)
-    C->>CBS: GET 80794ned (per provincie)
-    C->>CBS: GET 85615NED (in-/uitstroom bijstand)
-    CBS-->>C: JSON met echte cijfers
-    C-->>A: KPI's, trend, verdeling, regio's + afgeleide signalen
-    A->>R: geeft data door aan grafieken
-    R-->>G: tekent KPI's, grafieken en tabel
-    G->>A: klikt op kolomkop in provincietabel
-    A-->>G: hersorteert tabel direct (React state)
-```
+1. **Pipeline (periodiek of pre-build):**
+   - `npm run update-data` draait `scripts/fetch-data.js` in Node.
+   - Het script haalt data op bij CBS (37789ksz, 80794ned, 85615NED).
+   - Het script transformeert de tabellen en leidt de **signalen** af.
+   - Slaat het resultaat op in `public/data.json`.
+2. **Frontend (live):**
+   - Gebruiker opent de webapp.
+   - `useDashboardData.ts` doet een simpele fetch naar `/data.json`.
+   - React rendert direct alle grafieken, tabellen en afgeleide signalen.
 
 ## Mapstructuur
 
 ```
 sessie-06/
-├── README.md                 ← wat is dit & hoe start je het
+├── README.md                 ← algemene beschrijving
 ├── ARCHITECTUUR.md           ← dit document
-├── dev.sh                    ← start de dev-server (HMR)
+├── VERHAALLIJN.md            ← de inhoudelijke uitleg achter de getallen
+├── DEFINITIES.md             ← definities en exacte bronnen
+├── dev.sh                    ← start de dev-server
 └── app/
-    ├── index.html            ← HTML-startpunt
-    ├── tailwind.config.js    ← Tailwind + rijksblauw accentkleur
+    ├── package.json          ← bevat 'update-data' script
+    ├── scripts/
+    │   └── fetch-data.js     ← data pipeline die CBS omzet in data.json
+    ├── public/
+    │   └── data.json         ← output van pipeline, input voor frontend
     └── src/
         ├── main.tsx          ← mount React in de pagina
-        ├── App.tsx           ← laadt CBS-data, toont laad-/foutstatus + secties
-        ├── index.css         ← Tailwind basis-styling
-        ├── cbs.ts            ← haalt CBS op, transformeert, leidt signalen af
+        ├── App.tsx           ← hoofdscherm
+        ├── types/
+        │   └── index.ts      ← TypeScript definities
+        ├── api/
+        │   └── client.ts     ← fetch('/data.json')
+        ├── hooks/
+        │   └── useDashboardData.ts
         └── components/
-            ├── KpiCard.tsx        ← kerncijfer met maand-op-maand trendpijl
-            ├── TrendChart.tsx     ← bestand per soort per maand (lijngrafiek)
-            ├── FlowChart.tsx      ← in-/uitstroom bijstand per kwartaal (+ saldo)
-            ├── SignalenPanel.tsx  ← signalen (afgeleid uit de cijfers)
-            ├── Donut.tsx          ← verdeling uitkeringssoorten
-            ├── StaafVerdeling.tsx ← arbeidsongeschiktheid naar regeling
-            └── RegioTabel.tsx     ← sorteerbare tabel per provincie
+            ├── layout/       ← KpiCard, SignalenPanel
+            ├── charts/       ← TrendChart, FlowChart, Donut, StaafVerdeling
+            └── tables/       ← RegioTabel
 ```
 
 ## Techkeuzes in het kort
@@ -86,6 +87,6 @@ sessie-06/
 | Frontend | Vite + React + TypeScript | Snelste dev-server, type-veilig |
 | Styling | Tailwind CSS | Snel, flexibel (geen overheidshuisstijl gewenst) |
 | Grafieken | Recharts | Eenvoudige, mooie React-grafieken |
-| Data | CBS StatLine Open Data (live) | Echte, openbare cijfers via CORS — geen backend/DB nodig |
+| Data | Statische data.json via Node script | Bliksemsnelle frontend, geen CORS-ellende of client-side limits |
 
-Zie **`DEFINITIES.md`** voor de betekenis en exacte CBS-bron van elk getal.
+Zie **`VERHAALLIJN.md`** voor het inhoudelijke verhaal en **`DEFINITIES.md`** voor de betekenis en exacte CBS-bron van elk getal.

@@ -1,5 +1,5 @@
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend } from 'recharts'
-import type { Verdeling } from '../cbs'
+import type { Verdeling } from '../../types'
 
 export function Donut({ data }: { data: Verdeling[] }) {
   const totaal = data.reduce((s, d) => s + d.aantal, 0)
@@ -23,7 +23,7 @@ export function Donut({ data }: { data: Verdeling[] }) {
             ))}
           </Pie>
           <Tooltip
-            formatter={(v: number, n: string) => [
+            formatter={(v: any, n: any) => [
               `${(v * 1000).toLocaleString('nl-NL')} (${totaal ? Math.round((v / totaal) * 100) : 0}%)`,
               n,
             ]}

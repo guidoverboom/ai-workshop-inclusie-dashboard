@@ -1,4 +1,4 @@
-import type { Kpi } from '../cbs'
+import type { Kpi } from '../../types'
 
 function pct(waarde: number, vorige: number): number {
   if (vorige === 0) return 0
