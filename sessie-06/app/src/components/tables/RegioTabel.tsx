@@ -65,7 +65,18 @@ export function RegioTabel({ data }: { data: RegioData[] }) {
               <td className={`px-3 py-3 text-slate-800 ${r.regio === 'Heel Nederland' ? 'font-bold' : 'font-medium'}`}>
                 {r.regio}
               </td>
-              <td className="px-3 py-3 text-right tabular-nums text-slate-600">{getal(r.totaal)}</td>
+              <td className="px-3 py-3 text-right">
+                <div className="flex justify-end items-center gap-2">
+                  <span className="tabular-nums text-slate-600">{getal(r.totaal)}</span>
+                  {r.totaalYoY !== 0 && (
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded-sm font-semibold ${
+                      r.totaalYoY > 0 ? 'bg-red-50 text-red-600' : 'bg-emerald-50 text-emerald-600'
+                    }`}>
+                      {r.totaalYoY > 0 ? '+' : ''}{r.totaalYoY.toLocaleString('nl-NL', {minimumFractionDigits: 1})}%
+                    </span>
+                  )}
+                </div>
+              </td>
               <td className="px-3 py-3 text-right tabular-nums text-slate-500 bg-slate-50/50">{r.per1000 > 0 ? r.per1000.toLocaleString('nl-NL', {minimumFractionDigits: 1}) : '-'}</td>
               <td className="px-3 py-3 text-right tabular-nums text-slate-600">{getal(r.bijstand)}</td>
               <td className="px-3 py-3 text-right tabular-nums text-slate-500 bg-slate-50/50">{r.bijstandPer1000 > 0 ? r.bijstandPer1000.toLocaleString('nl-NL', {minimumFractionDigits: 1}) : '-'}</td>

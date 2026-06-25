@@ -1,0 +1,372 @@
+{
+  "laatstePeriodeRegio": "2025MM12",
+  "vorigJaarPeriodeRegio": "2024MM12",
+  "regioRows": [
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "NL01  ",
+      "TotDeAOWLeeftijd_2": 1397400,
+      "Werkloosheid_4": 161740,
+      "BijstandTotDeAOWLeeftijd_7": 405700,
+      "ArbeidsongeschiktheidTotaal_8": 813930,
+      "WajongUitkering_11": 226430
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "NL01  ",
+      "TotDeAOWLeeftijd_2": 1428360,
+      "Werkloosheid_4": 177370,
+      "BijstandTotDeAOWLeeftijd_7": 410070,
+      "ArbeidsongeschiktheidTotaal_8": 826890,
+      "WajongUitkering_11": 227150
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV20  ",
+      "TotDeAOWLeeftijd_2": 55330,
+      "Werkloosheid_4": 5490,
+      "BijstandTotDeAOWLeeftijd_7": 18490,
+      "ArbeidsongeschiktheidTotaal_8": 30870,
+      "WajongUitkering_11": 11130
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV20  ",
+      "TotDeAOWLeeftijd_2": 55580,
+      "Werkloosheid_4": 5380,
+      "BijstandTotDeAOWLeeftijd_7": 18390,
+      "ArbeidsongeschiktheidTotaal_8": 31370,
+      "WajongUitkering_11": 11160
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV21  ",
+      "TotDeAOWLeeftijd_2": 51200,
+      "Werkloosheid_4": 6100,
+      "BijstandTotDeAOWLeeftijd_7": 16760,
+      "ArbeidsongeschiktheidTotaal_8": 27490,
+      "WajongUitkering_11": 10690
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV21  ",
+      "TotDeAOWLeeftijd_2": 52270,
+      "Werkloosheid_4": 6370,
+      "BijstandTotDeAOWLeeftijd_7": 16920,
+      "ArbeidsongeschiktheidTotaal_8": 28370,
+      "WajongUitkering_11": 10690
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV22  ",
+      "TotDeAOWLeeftijd_2": 41710,
+      "Werkloosheid_4": 4590,
+      "BijstandTotDeAOWLeeftijd_7": 10390,
+      "ArbeidsongeschiktheidTotaal_8": 26180,
+      "WajongUitkering_11": 8350
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV22  ",
+      "TotDeAOWLeeftijd_2": 42250,
+      "Werkloosheid_4": 4790,
+      "BijstandTotDeAOWLeeftijd_7": 10390,
+      "ArbeidsongeschiktheidTotaal_8": 26610,
+      "WajongUitkering_11": 8400
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV23  ",
+      "TotDeAOWLeeftijd_2": 94820,
+      "Werkloosheid_4": 10370,
+      "BijstandTotDeAOWLeeftijd_7": 25930,
+      "ArbeidsongeschiktheidTotaal_8": 57860,
+      "WajongUitkering_11": 20040
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV23  ",
+      "TotDeAOWLeeftijd_2": 96510,
+      "Werkloosheid_4": 10900,
+      "BijstandTotDeAOWLeeftijd_7": 26180,
+      "ArbeidsongeschiktheidTotaal_8": 58990,
+      "WajongUitkering_11": 19990
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV24  ",
+      "TotDeAOWLeeftijd_2": 34300,
+      "Werkloosheid_4": 4460,
+      "BijstandTotDeAOWLeeftijd_7": 9450,
+      "ArbeidsongeschiktheidTotaal_8": 19950,
+      "WajongUitkering_11": 5330
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV24  ",
+      "TotDeAOWLeeftijd_2": 35110,
+      "Werkloosheid_4": 4820,
+      "BijstandTotDeAOWLeeftijd_7": 9530,
+      "ArbeidsongeschiktheidTotaal_8": 20330,
+      "WajongUitkering_11": 5410
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV25  ",
+      "TotDeAOWLeeftijd_2": 159190,
+      "Werkloosheid_4": 16680,
+      "BijstandTotDeAOWLeeftijd_7": 42460,
+      "ArbeidsongeschiktheidTotaal_8": 98350,
+      "WajongUitkering_11": 32260
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV25  ",
+      "TotDeAOWLeeftijd_2": 163100,
+      "Werkloosheid_4": 18280,
+      "BijstandTotDeAOWLeeftijd_7": 43170,
+      "ArbeidsongeschiktheidTotaal_8": 100350,
+      "WajongUitkering_11": 32490
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV26  ",
+      "TotDeAOWLeeftijd_2": 94040,
+      "Werkloosheid_4": 11050,
+      "BijstandTotDeAOWLeeftijd_7": 26530,
+      "ArbeidsongeschiktheidTotaal_8": 55610,
+      "WajongUitkering_11": 14400
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV26  ",
+      "TotDeAOWLeeftijd_2": 97000,
+      "Werkloosheid_4": 12670,
+      "BijstandTotDeAOWLeeftijd_7": 27290,
+      "ArbeidsongeschiktheidTotaal_8": 56380,
+      "WajongUitkering_11": 14400
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV27  ",
+      "TotDeAOWLeeftijd_2": 226080,
+      "Werkloosheid_4": 28550,
+      "BijstandTotDeAOWLeeftijd_7": 69480,
+      "ArbeidsongeschiktheidTotaal_8": 123760,
+      "WajongUitkering_11": 31550
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV27  ",
+      "TotDeAOWLeeftijd_2": 230750,
+      "Werkloosheid_4": 31650,
+      "BijstandTotDeAOWLeeftijd_7": 70310,
+      "ArbeidsongeschiktheidTotaal_8": 124480,
+      "WajongUitkering_11": 31560
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV28  ",
+      "TotDeAOWLeeftijd_2": 288910,
+      "Werkloosheid_4": 31770,
+      "BijstandTotDeAOWLeeftijd_7": 105060,
+      "ArbeidsongeschiktheidTotaal_8": 147020,
+      "WajongUitkering_11": 41510
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV28  ",
+      "TotDeAOWLeeftijd_2": 296200,
+      "Werkloosheid_4": 36120,
+      "BijstandTotDeAOWLeeftijd_7": 105720,
+      "ArbeidsongeschiktheidTotaal_8": 149730,
+      "WajongUitkering_11": 41740
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV29  ",
+      "TotDeAOWLeeftijd_2": 26330,
+      "Werkloosheid_4": 2790,
+      "BijstandTotDeAOWLeeftijd_7": 6960,
+      "ArbeidsongeschiktheidTotaal_8": 16490,
+      "WajongUitkering_11": 4380
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV29  ",
+      "TotDeAOWLeeftijd_2": 27030,
+      "Werkloosheid_4": 3010,
+      "BijstandTotDeAOWLeeftijd_7": 7130,
+      "ArbeidsongeschiktheidTotaal_8": 16850,
+      "WajongUitkering_11": 4440
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV30  ",
+      "TotDeAOWLeeftijd_2": 188560,
+      "Werkloosheid_4": 24640,
+      "BijstandTotDeAOWLeeftijd_7": 48590,
+      "ArbeidsongeschiktheidTotaal_8": 114030,
+      "WajongUitkering_11": 28990
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV30  ",
+      "TotDeAOWLeeftijd_2": 193700,
+      "Werkloosheid_4": 26830,
+      "BijstandTotDeAOWLeeftijd_7": 49460,
+      "ArbeidsongeschiktheidTotaal_8": 116660,
+      "WajongUitkering_11": 29180
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV31  ",
+      "TotDeAOWLeeftijd_2": 105140,
+      "Werkloosheid_4": 11920,
+      "BijstandTotDeAOWLeeftijd_7": 25470,
+      "ArbeidsongeschiktheidTotaal_8": 67730,
+      "WajongUitkering_11": 16990
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV31  ",
+      "TotDeAOWLeeftijd_2": 106080,
+      "Werkloosheid_4": 12350,
+      "BijstandTotDeAOWLeeftijd_7": 25410,
+      "ArbeidsongeschiktheidTotaal_8": 68500,
+      "WajongUitkering_11": 17000
+    }
+  ],
+  "bevolkingRows": [
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "NL01  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 18044027
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "NL01  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 18131238
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV20  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 602833
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV20  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 601530
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV21  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 664222
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV21  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 665276
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV22  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 506529
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV22  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 508054
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV23  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 1195789
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV23  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 1202369
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV24  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 456395
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV24  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 462880
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV25  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 2161358
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV25  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 2173425
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV26  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 1409144
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV26  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 1415322
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV27  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 2992016
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV27  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 3010044
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV28  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 3863397
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV28  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 3882709
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV29  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 392969
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV29  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 394514
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV30  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 2664047
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV30  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 2676753
+    },
+    {
+      "Perioden": "2024MM12",
+      "RegioS": "PV31  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 1135328
+    },
+    {
+      "Perioden": "2025MM12",
+      "RegioS": "PV31  ",
+      "BevolkingAanHetEindeVanDePeriode_15": 1138362
+    }
+  ]
+}

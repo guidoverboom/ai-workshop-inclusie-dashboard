@@ -1,6 +1,7 @@
 export interface RegioData {
   regio: string
   totaal: number
+  totaalYoY: number
   per1000: number
   bijstand: number
   bijstandPer1000: number

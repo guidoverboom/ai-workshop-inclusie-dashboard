@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "oxlint",
+    "lint": "eslint .",
     "preview": "vite preview",
-    "update-data": "node scripts/fetch-data.js"
+    "update-data": "node scripts/1-fetch-cbs.js && node scripts/2-transform.js"
   },
   "dependencies": {
     "react": "^19.2.7",
