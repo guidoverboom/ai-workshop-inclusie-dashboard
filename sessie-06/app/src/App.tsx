@@ -13,12 +13,16 @@ function App() {
       if (prev.includes(id)) {
         return prev.filter(r => r !== id)
       }
-      // Limiteer tot max 5 lijnen voor leesbaarheid, behalve als het NL01 is
-      if (prev.length >= 5 && !prev.includes(id)) {
-        return [...prev.slice(1), id]
-      }
       return [...prev, id]
     })
+  }
+
+  const selecteerAlles = () => {
+    if (data) setGeselecteerdeRegios(data.regios.map(r => r.id))
+  }
+
+  const deselecteerAlles = () => {
+    setGeselecteerdeRegios([])
   }
 
   return (
@@ -68,24 +72,63 @@ function App() {
           <>
             <section className="mb-8">
               <Card
-                title="Historische Ontwikkeling"
-                subtitle="Vergelijk de uitkeringen per 1.000 inwoners over de afgelopen 5 jaar. Vink regio's aan in de tabel hieronder."
+                title="Historische Ontwikkeling (Totale Uitkeringen)"
+                subtitle="Vergelijk de totale uitkeringen per 1.000 inwoners over de afgelopen 5 jaar. Vink regio's aan in de Algemene Tabel hieronder."
               >
                 <VergelijkingsGrafiek geselecteerdeRegioIds={geselecteerdeRegios} alleRegios={data.regios} />
               </Card>
             </section>
 
-            <section>
+            <section className="space-y-6">
               <Card
-                title="Actueel Overzicht per Provincie"
-                subtitle={`Uitkeringen tot AOW-leeftijd · ${data.peilmaandRegio} · CBS 80794ned — klik op een checkbox om toe te voegen aan de grafiek`}
+                title="Algemeen & Bijstand"
+                subtitle={`Totale uitkeringen en bijstand · ${data.peilmaandRegio} · CBS 80794ned`}
+                action={
+                  <div className="flex gap-2">
+                    <button 
+                      onClick={selecteerAlles}
+                      className="px-3 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-md transition-colors"
+                    >
+                      Selecteer Alles
+                    </button>
+                    <button 
+                      onClick={deselecteerAlles}
+                      className="px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors"
+                    >
+                      Deselecteer Alles
+                    </button>
+                  </div>
+                }
               >
                 <RegioTabel 
+                  variant="totaal"
                   data={data.regios} 
                   geselecteerdeRegios={geselecteerdeRegios} 
                   onToggleRegio={toggleRegio} 
                 />
               </Card>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <Card
+                  title="Werkloosheidswet (WW)"
+                  subtitle="Aantal lopende WW-uitkeringen"
+                >
+                  <RegioTabel 
+                    variant="ww"
+                    data={data.regios} 
+                  />
+                </Card>
+
+                <Card
+                  title="Arbeidsongeschiktheid (AO)"
+                  subtitle="WAO, WIA, WAZ, Wajong"
+                >
+                  <RegioTabel 
+                    variant="ao"
+                    data={data.regios} 
+                  />
+                </Card>
+              </div>
             </section>
 
             <footer className="pb-8 pt-2 text-center text-xs text-slate-400">
@@ -102,17 +145,22 @@ function App() {
 function Card({
   title,
   subtitle,
+  action,
   children,
 }: {
   title: string
   subtitle?: string
+  action?: React.ReactNode
   children: React.ReactNode
 }) {
   return (
     <div className="h-full rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-      <div className="mb-4">
-        <h2 className="text-base font-semibold text-slate-800">{title}</h2>
-        {subtitle && <p className="text-sm text-slate-500">{subtitle}</p>}
+      <div className="mb-4 flex justify-between items-start">
+        <div>
+          <h2 className="text-base font-semibold text-slate-800">{title}</h2>
+          {subtitle && <p className="text-sm text-slate-500">{subtitle}</p>}
+        </div>
+        {action && <div>{action}</div>}
       </div>
       {children}
     </div>

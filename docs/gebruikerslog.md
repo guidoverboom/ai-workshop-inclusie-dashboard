@@ -13,3 +13,13 @@
 
 **Oplossing:**
 - De flexbox styling rondom de grafiek is verwijderd en vervangen door een expliciete hardcoded hoogte (`h-[400px]`). Dit dwingt de browser en Recharts om de grafiek exact 400 pixels hoog te renderen, ongeacht de flex-layout van het ouderelement.
+
+---
+
+## Overweging Waardeduider: "Datadissonantie" (v0.6)
+**Context:** De gebruiker wil alle limieten van de grafiek verwijderen en de tabel opsplitsen in losse tabellen voor WW en AO.
+**Afweging:** 
+- Het weghalen van limieten versterkt de **Autonomie** van de gebruiker (alles kunnen zien).
+- Het splitsen van de tabellen bevordert de **Cognitieve Rust** en **Focus**.
+- **Cruciaal ethisch conflict (Datadissonantie):** De vergelijkingsgrafiek toont uitsluitend de *totale* uitkeringen (gebrek aan specifieke CBS historie voor WW/AO). Als we interactieve checkboxes plaatsen in een "WW-tabel" om de grafiek te besturen, suggereren we onterecht dat de grafiek de historische WW-trend toont. Dit schendt de waarde **Betrouwbaarheid**.
+**Besluit:** Om misleiding te voorkomen, plaatsen we interactieve checkboxes ("Selecteer alles" / "Deselecteer alles" en rij-selecties) uitsluitend in de Algemene "Totaal" tabel. De WW- en AO-tabellen fungeren als rustige, pure leesweergaves zonder besturingselementen.
