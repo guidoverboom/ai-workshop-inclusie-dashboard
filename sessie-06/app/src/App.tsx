@@ -1,9 +1,25 @@
+import { useState } from 'react'
 import { useDashboardData } from './hooks/useDashboardData'
 import { RegioTabel } from './components/tables/RegioTabel'
+import { VergelijkingsGrafiek } from './components/charts/VergelijkingsGrafiek'
 
 function App() {
   const { data, error, loading } = useDashboardData()
   const fout = error ? error.message : null
+  const [geselecteerdeRegios, setGeselecteerdeRegios] = useState<string[]>(['NL01'])
+
+  const toggleRegio = (id: string) => {
+    setGeselecteerdeRegios(prev => {
+      if (prev.includes(id)) {
+        return prev.filter(r => r !== id)
+      }
+      // Limiteer tot max 5 lijnen voor leesbaarheid, behalve als het NL01 is
+      if (prev.length >= 5 && !prev.includes(id)) {
+        return [...prev.slice(1), id]
+      }
+      return [...prev, id]
+    })
+  }
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -50,12 +66,25 @@ function App() {
 
         {data && (
           <>
+            <section className="mb-8">
+              <Card
+                title="Historische Ontwikkeling"
+                subtitle="Vergelijk de uitkeringen per 1.000 inwoners over de afgelopen 5 jaar. Vink regio's aan in de tabel hieronder."
+              >
+                <VergelijkingsGrafiek geselecteerdeRegioIds={geselecteerdeRegios} alleRegios={data.regios} />
+              </Card>
+            </section>
+
             <section>
               <Card
-                title="Per provincie & Landelijk"
-                subtitle={`Uitkeringen tot AOW-leeftijd · ${data.peilmaandRegio} · CBS 80794ned — klik op een kolomtitel om te sorteren`}
+                title="Actueel Overzicht per Provincie"
+                subtitle={`Uitkeringen tot AOW-leeftijd · ${data.peilmaandRegio} · CBS 80794ned — klik op een checkbox om toe te voegen aan de grafiek`}
               >
-                <RegioTabel data={data.regios} />
+                <RegioTabel 
+                  data={data.regios} 
+                  geselecteerdeRegios={geselecteerdeRegios} 
+                  onToggleRegio={toggleRegio} 
+                />
               </Card>
             </section>
 
