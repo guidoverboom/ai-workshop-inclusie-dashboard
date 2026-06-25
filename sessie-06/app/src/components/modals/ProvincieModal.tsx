@@ -78,19 +78,19 @@ export function ProvincieModal({ regioId, regioNaam, onClose }: ProvincieModalPr
         </div>
 
         {/* Content */}
-        <div className="p-6 flex-1 min-h-[400px] flex flex-col">
+        <div className="p-6">
           {loading ? (
-            <div className="flex items-center justify-center flex-1">
+            <div className="flex items-center justify-center h-[400px]">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
             </div>
           ) : data.length === 0 ? (
-            <div className="flex flex-col items-center justify-center flex-1 text-slate-500">
+            <div className="flex flex-col items-center justify-center h-[400px] text-slate-500">
               <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mb-4 opacity-50"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
               <p className="text-lg font-medium">Geen data gevonden</p>
               <p className="text-sm opacity-80 mt-1">Vernieuw de pagina (Cmd+R of F5) of draai `npm run update-data`.</p>
             </div>
           ) : (
-            <div className="flex-1 w-full relative">
+            <div className="w-full h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
