@@ -1,83 +1,58 @@
-# Architectuur — Dashboard Inclusieve Arbeidsmarkt
+# Architectuur — Regionaal Dashboard Inclusieve Arbeidsmarkt (v0.2)
 
-Een **signaaldashboard** dat ontwikkelingen rond uitkeringen, arbeidsongeschiktheid en
-regionale verschillen in één oogopslag zichtbaar maakt.
+Een razendsnelle, gestripte single-page applicatie (SPA) die actuele regionale verschillen in uitkeringen en arbeidsongeschiktheid in kaart brengt. Het dashboard bestaat uitsluitend uit een interactieve provincietabel.
 
-Sinds de refactor in Sessie 06 is de architectuur gewijzigd om de prestaties en schaalbaarheid te verbeteren. De API calls worden nu gebouwd op *build time* (of periodiek via een script) in plaats van *runtime* in de browser van de gebruiker.
+> **Let op:** Voor de volledige versie (v0.1) met KPI's, trendgrafieken en automatische signalen, zie de branch `20260625` in de Git-historie.
 
-## Architectuur
+## Architectuur v0.2
 
 ```mermaid
 flowchart LR
-    subgraph Data Pipeline ["Node.js Pipeline (build-time)"]
-        FetchData["scripts/fetch-data.js"]
-        CBS[("CBS StatLine Open Data<br/>37789ksz · 80794ned · 85615NED")]
-        DataJson["app/public/data.json"]
+    Gebruiker -->|opent in browser| Browser
+    Browser -->|haalt static JSON| JSON[("public/data.json<br/>(gegeneerd op build-time)")]
 
-        FetchData -->|GET| CBS
-        CBS -->|JSON| FetchData
-        FetchData -->|genereert| DataJson
+    subgraph "Bouwproces (Node.js)"
+        Fetch["scripts/fetch-data.js"]
+        CBS[("CBS StatLine Open Data<br/>80794ned (Provincies)<br/>37230ned (Bevolking)")]
+        Fetch -->|1. fetch| CBS
+        Fetch -->|2. bereken ratio's| JSON
     end
 
-    subgraph Browser ["Browser — React + Vite"]
-        Gebruiker -->|opent in browser| App
-        App["App.tsx<br/>laadt & verdeelt data"]
-        Client["api/client.ts<br/>useDashboardData()"]
-        KPI[KPI-kaarten]
-        Trend[Trend & Flow grafieken]
-        Signalen["Signalenpaneel"]
-        Verdeling[Donut + staafgrafiek]
-        Tabel["Provincietabel"]
-
-        App --> Client
-        Client -->|fetch| DataJson
-        App --> KPI & Trend & Signalen & Verdeling & Tabel
-        KPI & Trend & Verdeling & Tabel -->|render| Recharts[("Recharts<br/>grafieken")]
+    subgraph "Browser — React + Vite"
+        App["App.tsx"]
+        Hook["useDashboardData.ts"]
+        Tabel["RegioTabel.tsx<br/>(sorteerbaar)"]
+        
+        App --> Hook
+        Hook -->|lees| JSON
+        App --> Tabel
     end
 ```
 
-Er is bewust **geen eigen backend of actieve database**: CBS levert de data, en we gebruiken een eenvoudig script om deze statisch vast te leggen. Dat houdt de stack zo eenvoudig mogelijk, maakt de frontend bliksemsnel, en zorgt dat we niet tegen CORS-problemen of API-limits van de client browser aanlopen.
-
-## Datastroom
-
-1. **Pipeline (periodiek of pre-build):**
-   - `npm run update-data` draait `scripts/fetch-data.js` in Node.
-   - Het script haalt data op bij CBS (37789ksz, 80794ned, 85615NED).
-   - Het script transformeert de tabellen en leidt de **signalen** af.
-   - Slaat het resultaat op in `public/data.json`.
-2. **Frontend (live):**
-   - Gebruiker opent de webapp.
-   - `useDashboardData.ts` doet een simpele fetch naar `/data.json`.
-   - React rendert direct alle grafieken, tabellen en afgeleide signalen.
+Er is **geen eigen backend of actieve runtime database** nodig. De data wordt via een build-script (`npm run update-data`) opgeslagen in een statisch JSON-bestand. Hierdoor is de applicatie extreem snel, schaalbaar en veilig.
 
 ## Mapstructuur
 
 ```
 sessie-06/
-├── README.md                 ← algemene beschrijving
+├── README.md                 ← instructies
 ├── ARCHITECTUUR.md           ← dit document
-├── VERHAALLIJN.md            ← de inhoudelijke uitleg achter de getallen
-├── DEFINITIES.md             ← definities en exacte bronnen
-├── dev.sh                    ← start de dev-server
+├── DEFINITIES.md             ← datawoordenboek (wat betekent elke tabelkolom)
+├── VERHAALLIJN.md            ← het doel en verhaal van het dashboard
 └── app/
-    ├── package.json          ← bevat 'update-data' script
+    ├── package.json          ← o.a. het `update-data` script
     ├── scripts/
-    │   └── fetch-data.js     ← data pipeline die CBS omzet in data.json
+    │   └── fetch-data.js     ← haalt data bij CBS en maakt data.json
     ├── public/
-    │   └── data.json         ← output van pipeline, input voor frontend
+    │   └── data.json         ← de output data, geconsumeerd door React
     └── src/
-        ├── main.tsx          ← mount React in de pagina
-        ├── App.tsx           ← hoofdscherm
-        ├── types/
-        │   └── index.ts      ← TypeScript definities
-        ├── api/
-        │   └── client.ts     ← fetch('/data.json')
+        ├── App.tsx           ← hoofdcomponent
+        ├── types/index.ts    ← TypeScript definities (RegioData)
         ├── hooks/
         │   └── useDashboardData.ts
         └── components/
-            ├── layout/       ← KpiCard, SignalenPanel
-            ├── charts/       ← TrendChart, FlowChart, Donut, StaafVerdeling
-            └── tables/       ← RegioTabel
+            └── tables/
+                └── RegioTabel.tsx ← de enige UI-component
 ```
 
 ## Techkeuzes in het kort
@@ -85,8 +60,6 @@ sessie-06/
 | Onderdeel | Keuze | Waarom |
 |-----------|-------|--------|
 | Frontend | Vite + React + TypeScript | Snelste dev-server, type-veilig |
-| Styling | Tailwind CSS | Snel, flexibel (geen overheidshuisstijl gewenst) |
-| Grafieken | Recharts | Eenvoudige, mooie React-grafieken |
-| Data | Statische data.json via Node script | Bliksemsnelle frontend, geen CORS-ellende of client-side limits |
-
-Zie **`VERHAALLIJN.md`** voor het inhoudelijke verhaal en **`DEFINITIES.md`** voor de betekenis en exacte CBS-bron van elk getal.
+| Styling | Tailwind CSS | Snel, flexibel |
+| Data ophalen | Statische build stap (Node.js) | Geen trage API-calls voor de eindgebruiker, geen backend nodig. |
+| Databron | CBS StatLine Open Data | Echte, openbare cijfers (80794ned en 37230ned). |
