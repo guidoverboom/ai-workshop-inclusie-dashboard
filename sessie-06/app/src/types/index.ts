@@ -1,4 +1,5 @@
 export interface RegioData {
+  id: string
   regio: string
   totaal: number
   totaalYoY: number

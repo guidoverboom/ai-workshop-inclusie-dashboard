@@ -41,28 +41,46 @@ function transformData() {
     bevolkingRows.map(r => [`${r.Perioden.trim()}_${r.RegioS.trim()}`, r.BevolkingAanHetEindeVanDePeriode_15])
   )
 
-  // Sorteer regioRows zodat we makkelijk kunnen groeperen op regio
+  // Groepeer alle rijen op Regio
   const regioMap = {}
   for (const r of regioRows) {
     const regioId = r.RegioS.trim()
     if (!regioMap[regioId]) {
-      regioMap[regioId] = { huidig: null, vorig: null }
+      regioMap[regioId] = { actueel: null, vorigJaar: null, historie: [] }
     }
     
-    if (r.Perioden.trim() === laatstePeriodeRegio) {
-      regioMap[regioId].huidig = r
-    } else if (r.Perioden.trim() === vorigJaarPeriodeRegio) {
-      regioMap[regioId].vorig = r
-    }
+    const periode = r.Perioden.trim()
+    const totaal = r.TotDeAOWLeeftijd_2 ?? 0
+    const populatie = bevolkingMap[`${periode}_${regioId}`] || 0
+    const per1000 = populatie ? Math.round((totaal / populatie) * 10000) / 10 : 0
+    
+    regioMap[regioId].historie.push({
+      periode,
+      maand: labelVol(periode),
+      totaal,
+      per1000
+    })
+
+    if (periode === laatstePeriodeRegio) regioMap[regioId].actueel = r
+    if (periode === vorigJaarPeriodeRegio) regioMap[regioId].vorigJaar = r
   }
+
+  // Zorg dat de map historie/ bestaat
+  const historieDir = path.join(__dirname, '../public/historie')
+  if (!fs.existsSync(historieDir)) fs.mkdirSync(historieDir)
 
   const regios = Object.entries(regioMap)
     .map(([regioId, data]) => {
-      const h = data.huidig
-      const v = data.vorig
+      const h = data.actueel
+      const v = data.vorigJaar
 
       if (!h) return null // Geen actuele data
 
+      // Schrijf historische data voor deze regio naar losse JSON
+      data.historie.sort((a, b) => a.periode.localeCompare(b.periode))
+      fs.writeFileSync(path.join(historieDir, `${regioId}.json`), JSON.stringify(data.historie))
+
+      // Verwerk actuele data voor hoofdtabel
       const totaal = h.TotDeAOWLeeftijd_2 ?? 0
       const arbeidsongeschikt = h.ArbeidsongeschiktheidTotaal_8 ?? 0
       const populatie = bevolkingMap[`${laatstePeriodeRegio}_${regioId}`] || 0
@@ -78,9 +96,10 @@ function transformData() {
       }
 
       return {
+        id: regioId, // id toegevoegd zodat we weten welke file we moeten fetchen
         regio: PROVINCIES[regioId] ?? regioId,
         totaal,
-        totaalYoY: Math.round(totaalYoY * 10) / 10, // Afronden op 1 decimaal
+        totaalYoY: Math.round(totaalYoY * 10) / 10,
         per1000: ratio(totaal),
         bijstand,
         bijstandPer1000: ratio(bijstand),
@@ -100,10 +119,7 @@ function transformData() {
   const dest = path.join(__dirname, '../public/data.json')
   fs.writeFileSync(dest, JSON.stringify(data, null, 2))
   
-  // Optioneel: gooi raw-data.json weg als je die niet in je build map wilt hebben
-  // fs.unlinkSync(source)
-
-  console.log(`✅ Transform: Data succesvol berekend en opgeslagen in ${dest}`)
+  console.log(`✅ Transform: Hoofddata (${dest}) en 13 historie-bestanden gegenereerd`)
 }
 
 transformData()

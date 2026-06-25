@@ -22,16 +22,17 @@ async function buildData() {
   const periodenUrl = `${BASE}/80794ned/Perioden?${f}`
   const periodenRows = await haal(periodenUrl)
   
-  if (periodenRows.length < 13) {
-    throw new Error('Niet genoeg historische data (minder dan 13 maanden beschikbaar)')
+  if (periodenRows.length < 60) {
+    throw new Error('Niet genoeg historische data (minder dan 60 maanden beschikbaar)')
   }
 
-  // Bepaal huidige maand en precies één jaar geleden
+  // Bepaal de huidige maand, vorig jaar, en 5 jaar geleden (60 maanden)
   const laatstePeriodeRegio = periodenRows[periodenRows.length - 1].Key.trim()
   const vorigJaarPeriodeRegio = periodenRows[periodenRows.length - 13].Key.trim()
+  const startPeriodeRegio = periodenRows[periodenRows.length - 60].Key.trim()
   
-  // Filter op die specifieke maanden EN alleen provincies + Nederland
-  const regioFilter = encodeURIComponent(`(Perioden eq '${laatstePeriodeRegio}' or Perioden eq '${vorigJaarPeriodeRegio}') and (substringof('PV',RegioS) or substringof('NL01',RegioS))`)
+  // Filter op de afgelopen 5 jaar (Perioden ge startPeriode) EN alleen provincies + Nederland
+  const regioFilter = encodeURIComponent(`Perioden ge '${startPeriodeRegio}' and (substringof('PV',RegioS) or substringof('NL01',RegioS))`)
   
   // We halen TotDeAOWLeeftijd_2 (Totaal), Werkloosheid_4 (WW), BijstandTotDeAOWLeeftijd_7 (Bijstand), ArbeidsongeschiktheidTotaal_8 (AO), en WajongUitkering_11 (Wajong)
   const regioSelect = 'Perioden,RegioS,TotDeAOWLeeftijd_2,Werkloosheid_4,BijstandTotDeAOWLeeftijd_7,ArbeidsongeschiktheidTotaal_8,WajongUitkering_11'

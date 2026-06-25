@@ -1,11 +1,13 @@
 import { useMemo, useState } from 'react'
 import type { RegioData } from '../../types'
+import { ProvincieModal } from '../modals/ProvincieModal'
 
 type Kolom = 'regio' | 'totaal' | 'per1000' | 'bijstand' | 'bijstandPer1000' | 'ww' | 'wwPer1000' | 'arbeidsongeschikt' | 'aoPer1000' | 'aandeelAO'
 
 export function RegioTabel({ data }: { data: RegioData[] }) {
   const [sortKey, setSortKey] = useState<Kolom>('totaal')
   const [asc, setAsc] = useState(false)
+  const [selectedRegio, setSelectedRegio] = useState<{id: string, naam: string} | null>(null)
 
   const rijen = useMemo(() => {
     return [...data].sort((a, b) => {
@@ -58,12 +60,16 @@ export function RegioTabel({ data }: { data: RegioData[] }) {
           {rijen.map((r) => (
             <tr
               key={r.regio}
-              className={`border-b hover:bg-slate-50 ${
+              onClick={() => setSelectedRegio({ id: r.id, naam: r.regio })}
+              className={`border-b cursor-pointer group hover:bg-indigo-50/50 ${
                 r.regio === 'Heel Nederland' ? 'bg-slate-100/80 border-slate-300 shadow-sm z-10 relative' : 'border-slate-100'
               }`}
             >
-              <td className={`px-3 py-3 text-slate-800 ${r.regio === 'Heel Nederland' ? 'font-bold' : 'font-medium'}`}>
-                {r.regio}
+              <td className={`px-3 py-3 text-slate-800 flex justify-between items-center ${r.regio === 'Heel Nederland' ? 'font-bold' : 'font-medium'}`}>
+                <span>{r.regio}</span>
+                <span className="text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </span>
               </td>
               <td className="px-3 py-3 text-right">
                 <div className="flex justify-end items-center gap-2">
@@ -105,6 +111,14 @@ export function RegioTabel({ data }: { data: RegioData[] }) {
         “Aandeel AO” = deel van de uitkeringen (&lt; AOW-leeftijd) dat een
         arbeidsongeschiktheidsuitkering is. Kleur: groen &lt; 45%, oranje 45–54%, rood ≥ 55%.
       </p>
+
+      {selectedRegio && (
+        <ProvincieModal 
+          regioId={selectedRegio.id} 
+          regioNaam={selectedRegio.naam} 
+          onClose={() => setSelectedRegio(null)} 
+        />
+      )}
     </div>
   )
 }
