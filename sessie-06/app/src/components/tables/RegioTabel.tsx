@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react'
-import type { RegioRij } from '../../types'
+import type { RegioData } from '../../types'
 
 type Kolom = 'regio' | 'totaal' | 'per1000' | 'bijstand' | 'bijstandPer1000' | 'ww' | 'wwPer1000' | 'arbeidsongeschikt' | 'aoPer1000' | 'aandeelAO'
 
-export function RegioTabel({ data }: { data: RegioRij[] }) {
+export function RegioTabel({ data }: { data: RegioData[] }) {
   const [sortKey, setSortKey] = useState<Kolom>('totaal')
   const [asc, setAsc] = useState(false)
 
