@@ -152,22 +152,22 @@ export function KwadrantenGrafiek({ alleRegios }: KwadrantenGrafiekProps) {
           <div className="absolute inset-0 pointer-events-none p-[60px] flex flex-col justify-between z-0">
             <div className="flex justify-between h-1/2">
               <div className="w-1/2 pl-12 pt-8">
-                <span className="text-sm font-bold text-orange-500/50 uppercase tracking-widest">Gevallen / Waakzaam</span>
-                <p className="text-xs text-orange-500/40">Startte onder gem, eindigt bóven gem.</p>
+                <span className="text-sm font-bold text-orange-500/50 uppercase tracking-widest">Relatieve Stijgers</span>
+                <p className="text-xs text-orange-500/40">Ondergemiddeld, maar neemt versneld toe</p>
               </div>
               <div className="w-1/2 text-right pr-4 pt-8">
-                <span className="text-sm font-bold text-red-500/50 uppercase tracking-widest">Structureel Belast</span>
-                <p className="text-xs text-red-500/40">Startte boven gem, eindigt bóven gem.</p>
+                <span className="text-sm font-bold text-red-500/50 uppercase tracking-widest">Bovengemiddelde Concentratie</span>
+                <p className="text-xs text-red-500/40">Structureel meer uitkeringen dan landelijk</p>
               </div>
             </div>
             <div className="flex justify-between h-1/2 items-end">
               <div className="w-1/2 pl-12 pb-16">
-                <span className="text-sm font-bold text-emerald-500/50 uppercase tracking-widest">Solide Basis</span>
-                <p className="text-xs text-emerald-500/40">Startte onder gem, eindigt ónder gem.</p>
+                <span className="text-sm font-bold text-emerald-500/50 uppercase tracking-widest">Ondergemiddelde Concentratie</span>
+                <p className="text-xs text-emerald-500/40">Structureel minder uitkeringen dan landelijk</p>
               </div>
               <div className="w-1/2 text-right pr-4 pb-16">
-                <span className="text-sm font-bold text-blue-500/50 uppercase tracking-widest">De Inhaalslagers</span>
-                <p className="text-xs text-blue-500/40">Startte boven gem, eindigt ónder gem.</p>
+                <span className="text-sm font-bold text-blue-500/50 uppercase tracking-widest">Relatieve Dalers</span>
+                <p className="text-xs text-blue-500/40">Bovengemiddeld, maar neemt versneld af</p>
               </div>
             </div>
           </div>
