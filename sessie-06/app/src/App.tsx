@@ -82,8 +82,8 @@ function App() {
             {/* -- TOTAAL SECTIE -- */}
             <section>
               <div className="mb-6">
-                <h2 className="text-2xl font-bold text-slate-800">1. Totale Uitkeringen & Bijstand</h2>
-                <p className="text-sm text-slate-600">Structurele basis en brede trends over alle uitkeringen heen.</p>
+                <h2 className="text-2xl font-bold text-slate-800">1. Totale Uitkeringen</h2>
+                <p className="text-sm text-slate-600">De algemene macro-trend over alle uitkeringen heen.</p>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                 <Card title="Historische Ontwikkeling">
@@ -106,10 +106,29 @@ function App() {
               </Card>
             </section>
 
+            {/* -- BIJSTAND SECTIE -- */}
+            <section className="pt-8 border-t border-slate-200">
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-slate-800">2. Bijstand (Participatiewet)</h2>
+                <p className="text-sm text-slate-600">Vaak een indicatie van structurele ongelijkheid en kansen in verstedelijkte gebieden.</p>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <Card title="Historische Ontwikkeling">
+                  <VergelijkingsGrafiek variant="bijstand" geselecteerdeRegioIds={geselecteerdeRegios} alleRegios={data.regios} />
+                </Card>
+                <Card title="Kwadrantenanalyse">
+                  <KwadrantenGrafiek variant="bijstand" alleRegios={data.regios} />
+                </Card>
+              </div>
+              <Card title="Tabelweergave">
+                <RegioTabel variant="bijstand" data={data.regios} geselecteerdeRegios={geselecteerdeRegios} onToggleRegio={toggleRegio} />
+              </Card>
+            </section>
+
             {/* -- WW SECTIE -- */}
             <section className="pt-8 border-t border-slate-200">
               <div className="mb-6">
-                <h2 className="text-2xl font-bold text-slate-800">2. Werkloosheidswet (WW)</h2>
+                <h2 className="text-2xl font-bold text-slate-800">3. Werkloosheidswet (WW)</h2>
                 <p className="text-sm text-slate-600">Gevoelig voor kortetermijnschokken en conjunctuur in de lokale economie.</p>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
@@ -128,7 +147,7 @@ function App() {
             {/* -- AO SECTIE -- */}
             <section className="pt-8 border-t border-slate-200">
               <div className="mb-6">
-                <h2 className="text-2xl font-bold text-slate-800">3. Arbeidsongeschiktheid (AO)</h2>
+                <h2 className="text-2xl font-bold text-slate-800">4. Arbeidsongeschiktheid (AO)</h2>
                 <p className="text-sm text-slate-600">Lange termijn trends door o.a. vergrijzing en historische industriële aard van een regio.</p>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">

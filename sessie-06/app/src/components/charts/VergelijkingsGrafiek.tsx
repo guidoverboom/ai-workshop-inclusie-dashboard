@@ -5,7 +5,7 @@ import type { RegioData } from '../../types'
 interface VergelijkingsGrafiekProps {
   geselecteerdeRegioIds: string[]
   alleRegios: RegioData[]
-  variant?: 'totaal' | 'ww' | 'ao'
+  variant?: 'totaal' | 'bijstand' | 'ww' | 'ao'
 }
 
 const COLORS = [
@@ -28,7 +28,7 @@ export function VergelijkingsGrafiek({ geselecteerdeRegioIds, alleRegios, varian
   const [fout, setFout] = useState<string | null>(null)
   const [isRelatief, setIsRelatief] = useState(false)
 
-  const dataKey = variant === 'ww' ? 'wwPer1000' : variant === 'ao' ? 'aoPer1000' : 'per1000'
+  const dataKey = variant === 'ww' ? 'wwPer1000' : variant === 'ao' ? 'aoPer1000' : variant === 'bijstand' ? 'bijstandPer1000' : 'per1000'
 
   useEffect(() => {
     if (geselecteerdeRegioIds.length === 0) {

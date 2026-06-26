@@ -15,7 +15,7 @@ import type { RegioData } from '../../types'
 
 interface KwadrantenGrafiekProps {
   alleRegios: RegioData[]
-  variant?: 'totaal' | 'ww' | 'ao'
+  variant?: 'totaal' | 'bijstand' | 'ww' | 'ao'
 }
 
 interface ScatterData {
@@ -37,8 +37,8 @@ export function KwadrantenGrafiek({ alleRegios, variant = 'totaal' }: Kwadranten
   const [loading, setLoading] = useState(false)
   const [fout, setFout] = useState<string | null>(null)
 
-  const dataKey = variant === 'ww' ? 'wwPer1000' : variant === 'ao' ? 'aoPer1000' : 'per1000'
-  const domainMax = variant === 'ww' ? 6 : variant === 'ao' ? 14 : 18
+  const dataKey = variant === 'ww' ? 'wwPer1000' : variant === 'ao' ? 'aoPer1000' : variant === 'bijstand' ? 'bijstandPer1000' : 'per1000'
+  const domainMax = variant === 'ww' ? 6 : variant === 'ao' ? 14 : variant === 'bijstand' ? 8 : 18
 
   useEffect(() => {
     setLoading(true)

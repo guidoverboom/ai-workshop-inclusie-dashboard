@@ -7,7 +7,7 @@ interface RegioTabelProps {
   data: RegioData[]
   geselecteerdeRegios?: string[]
   onToggleRegio?: (id: string) => void
-  variant?: 'totaal' | 'ww' | 'ao'
+  variant?: 'totaal' | 'bijstand' | 'ww' | 'ao'
 }
 
 export function RegioTabel({ 
@@ -17,7 +17,7 @@ export function RegioTabel({
   variant = 'totaal'
 }: RegioTabelProps) {
   // Standaard sortering is afhankelijk van de variant
-  const defaultSort: Kolom = variant === 'ww' ? 'ww' : variant === 'ao' ? 'arbeidsongeschikt' : 'totaal'
+  const defaultSort: Kolom = variant === 'ww' ? 'ww' : variant === 'ao' ? 'arbeidsongeschikt' : variant === 'bijstand' ? 'bijstand' : 'totaal'
   const [sortKey, setSortKey] = useState<Kolom>(defaultSort)
   const [asc, setAsc] = useState(false)
 
@@ -52,6 +52,7 @@ export function RegioTabel({
   const getal = (n: number) => n.toLocaleString('nl-NL')
 
   const isTotaal = variant === 'totaal'
+  const isBijstand = variant === 'bijstand'
   const isWW = variant === 'ww'
   const isAO = variant === 'ao'
 
@@ -67,6 +68,11 @@ export function RegioTabel({
               <>
                 <Th k="totaal" label="Uitkeringen (< AOW)" rechts />
                 <Th k="per1000" label="Per 1.000 inw." rechts />
+              </>
+            )}
+
+            {isBijstand && (
+              <>
                 <Th k="bijstand" label="Bijstand" rechts />
                 <Th k="bijstandPer1000" label="/ 1.000 inw." rechts />
               </>
@@ -129,6 +135,11 @@ export function RegioTabel({
                       </div>
                     </td>
                     <td className="px-3 py-3 text-right tabular-nums text-slate-500 bg-slate-50/50">{r.per1000 > 0 ? r.per1000.toLocaleString('nl-NL', {minimumFractionDigits: 1}) : '-'}</td>
+                  </>
+                )}
+
+                {isBijstand && (
+                  <>
                     <td className="px-3 py-3 text-right tabular-nums text-slate-600">{getal(r.bijstand)}</td>
                     <td className="px-3 py-3 text-right tabular-nums text-slate-500 bg-slate-50/50">{r.bijstandPer1000 > 0 ? r.bijstandPer1000.toLocaleString('nl-NL', {minimumFractionDigits: 1}) : '-'}</td>
                   </>
