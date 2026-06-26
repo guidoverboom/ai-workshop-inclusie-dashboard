@@ -5,6 +5,7 @@ import type { RegioData } from '../../types'
 interface VergelijkingsGrafiekProps {
   geselecteerdeRegioIds: string[]
   alleRegios: RegioData[]
+  variant?: 'totaal' | 'ww' | 'ao'
 }
 
 const COLORS = [
@@ -21,11 +22,13 @@ const COLORS = [
   '#ea580c',
 ]
 
-export function VergelijkingsGrafiek({ geselecteerdeRegioIds, alleRegios }: VergelijkingsGrafiekProps) {
+export function VergelijkingsGrafiek({ geselecteerdeRegioIds, alleRegios, variant = 'totaal' }: VergelijkingsGrafiekProps) {
   const [data, setData] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const [fout, setFout] = useState<string | null>(null)
   const [isRelatief, setIsRelatief] = useState(false)
+
+  const dataKey = variant === 'ww' ? 'wwPer1000' : variant === 'ao' ? 'aoPer1000' : 'per1000'
 
   useEffect(() => {
     if (geselecteerdeRegioIds.length === 0) {
@@ -63,7 +66,7 @@ export function VergelijkingsGrafiek({ geselecteerdeRegioIds, alleRegios }: Verg
                 maand: row.maand
               }
             }
-            mergedData[row.periode][result.id] = row.per1000
+            mergedData[row.periode][result.id] = row[dataKey]
           })
         })
 

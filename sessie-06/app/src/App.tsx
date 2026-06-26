@@ -78,82 +78,69 @@ function App() {
         )}
 
         {data && (
-          <>
-            <section className="mb-8">
+          <div className="space-y-16">
+            {/* -- TOTAAL SECTIE -- */}
+            <section>
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-slate-800">1. Totale Uitkeringen & Bijstand</h2>
+                <p className="text-sm text-slate-600">Structurele basis en brede trends over alle uitkeringen heen.</p>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <Card title="Historische Ontwikkeling">
+                  <VergelijkingsGrafiek variant="totaal" geselecteerdeRegioIds={geselecteerdeRegios} alleRegios={data.regios} />
+                </Card>
+                <Card title="Kwadrantenanalyse">
+                  <KwadrantenGrafiek variant="totaal" alleRegios={data.regios} />
+                </Card>
+              </div>
               <Card
-                title="Historische Ontwikkeling (Totale Uitkeringen)"
-                subtitle="Vergelijk de totale uitkeringen per 1.000 inwoners over de afgelopen 5 jaar. Vink regio's aan in de Algemene Tabel hieronder."
-              >
-                <VergelijkingsGrafiek geselecteerdeRegioIds={geselecteerdeRegios} alleRegios={data.regios} />
-              </Card>
-            </section>
-
-            <section className="space-y-6">
-              <Card
-                title="Algemeen & Bijstand"
-                subtitle={`Totale uitkeringen en bijstand · ${data.peilmaandRegio} · CBS 80794ned`}
+                title="Tabelweergave"
                 action={
                   <div className="flex gap-2">
-                    <button 
-                      onClick={selecteerAlles}
-                      className="px-3 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-md transition-colors"
-                    >
-                      Selecteer Alles
-                    </button>
-                    <button 
-                      onClick={deselecteerAlles}
-                      className="px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-md transition-colors"
-                    >
-                      Deselecteer Alles
-                    </button>
+                    <button onClick={selecteerAlles} className="px-3 py-1.5 text-xs font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-md">Selecteer Alles</button>
+                    <button onClick={deselecteerAlles} className="px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-md">Deselecteer Alles</button>
                   </div>
                 }
               >
-                <RegioTabel 
-                  variant="totaal"
-                  data={data.regios} 
-                  geselecteerdeRegios={geselecteerdeRegios} 
-                  onToggleRegio={toggleRegio} 
-                />
+                <RegioTabel variant="totaal" data={data.regios} geselecteerdeRegios={geselecteerdeRegios} onToggleRegio={toggleRegio} />
               </Card>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <Card
-                  title="Werkloosheidswet (WW)"
-                  subtitle="Aantal lopende WW-uitkeringen"
-                >
-                  <RegioTabel 
-                    variant="ww"
-                    data={data.regios} 
-                  />
-                </Card>
-
-                <Card
-                  title="Arbeidsongeschiktheid (AO)"
-                  subtitle="WAO, WIA, WAZ, Wajong"
-                >
-                  <RegioTabel 
-                    variant="ao"
-                    data={data.regios} 
-                  />
-                </Card>
-              </div>
             </section>
 
-            {/* Nieuwe sectie: Diepgaande Analyse */}
-            <section className="mt-8 pt-6 border-t border-slate-200">
-              <div className="mb-4">
-                <h2 className="text-xl font-bold text-slate-800">Diepgaande Analyse: Socioloog & Demograaf</h2>
-                <p className="text-sm text-slate-600 mt-1 max-w-3xl">
-                  In deze kwadrantengrafiek verdelen we de provincies op basis van hun structurele positie en hun trend sinds 2021. 
-                  Staat een stipje hoog? Dan heeft die provincie veel uitkeringen. Staat een stipje ver naar rechts? Dan verslechtert de situatie sneller dan gemiddeld.
-                </p>
+            {/* -- WW SECTIE -- */}
+            <section className="pt-8 border-t border-slate-200">
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-slate-800">2. Werkloosheidswet (WW)</h2>
+                <p className="text-sm text-slate-600">Gevoelig voor kortetermijnschokken en conjunctuur in de lokale economie.</p>
               </div>
-              <Card
-                title="Kwadrantenanalyse van de Inclusieve Arbeidsmarkt"
-                subtitle="Elke stip is een provincie. De Y-as is de huidige positie ten opzichte van het landelijk gemiddelde. De X-as toont de ontwikkeling (trend) sinds begin 2021."
-              >
-                <KwadrantenGrafiek alleRegios={data.regios} />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <Card title="Historische Ontwikkeling">
+                  <VergelijkingsGrafiek variant="ww" geselecteerdeRegioIds={geselecteerdeRegios} alleRegios={data.regios} />
+                </Card>
+                <Card title="Kwadrantenanalyse">
+                  <KwadrantenGrafiek variant="ww" alleRegios={data.regios} />
+                </Card>
+              </div>
+              <Card title="Tabelweergave">
+                <RegioTabel variant="ww" data={data.regios} geselecteerdeRegios={geselecteerdeRegios} onToggleRegio={toggleRegio} />
+              </Card>
+            </section>
+
+            {/* -- AO SECTIE -- */}
+            <section className="pt-8 border-t border-slate-200">
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-slate-800">3. Arbeidsongeschiktheid (AO)</h2>
+                <p className="text-sm text-slate-600">Lange termijn trends door o.a. vergrijzing en historische industriële aard van een regio.</p>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <Card title="Historische Ontwikkeling">
+                  <VergelijkingsGrafiek variant="ao" geselecteerdeRegioIds={geselecteerdeRegios} alleRegios={data.regios} />
+                </Card>
+                <Card title="Kwadrantenanalyse">
+                  <KwadrantenGrafiek variant="ao" alleRegios={data.regios} />
+                </Card>
+              </div>
+              <Card title="Tabelweergave">
+                <RegioTabel variant="ao" data={data.regios} geselecteerdeRegios={geselecteerdeRegios} onToggleRegio={toggleRegio} />
               </Card>
             </section>
 
@@ -161,7 +148,7 @@ function App() {
               Live data: CBS StatLine Open Data (tabel 80794ned) ·
               Vite + React + Tailwind + Recharts
             </footer>
-          </>
+          </div>
         )}
       </main>
     </div>

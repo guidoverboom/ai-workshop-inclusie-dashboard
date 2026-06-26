@@ -51,14 +51,23 @@ function transformData() {
     
     const periode = r.Perioden.trim()
     const totaal = r.TotDeAOWLeeftijd_2 ?? 0
+    const ww = r.Werkloosheid_4 ?? 0
+    const ao = r.ArbeidsongeschiktheidTotaal_8 ?? 0
     const populatie = bevolkingMap[`${periode}_${regioId}`] || 0
+    
     const per1000 = populatie ? Math.round((totaal / populatie) * 10000) / 10 : 0
+    const wwPer1000 = populatie ? Math.round((ww / populatie) * 10000) / 10 : 0
+    const aoPer1000 = populatie ? Math.round((ao / populatie) * 10000) / 10 : 0
     
     regioMap[regioId].historie.push({
       periode,
       maand: labelVol(periode),
       totaal,
-      per1000
+      per1000,
+      ww,
+      wwPer1000,
+      ao,
+      aoPer1000
     })
 
     if (periode === laatstePeriodeRegio) regioMap[regioId].actueel = r

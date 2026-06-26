@@ -15,6 +15,7 @@ import type { RegioData } from '../../types'
 
 interface KwadrantenGrafiekProps {
   alleRegios: RegioData[]
+  variant?: 'totaal' | 'ww' | 'ao'
 }
 
 interface ScatterData {
@@ -31,10 +32,13 @@ const COLORS = [
   '#0284c7', '#ca8a04', '#db2777', '#0d9488', '#4f46e5', '#ea580c', '#16a34a'
 ]
 
-export function KwadrantenGrafiek({ alleRegios }: KwadrantenGrafiekProps) {
+export function KwadrantenGrafiek({ alleRegios, variant = 'totaal' }: KwadrantenGrafiekProps) {
   const [data, setData] = useState<ScatterData[]>([])
   const [loading, setLoading] = useState(false)
   const [fout, setFout] = useState<string | null>(null)
+
+  const dataKey = variant === 'ww' ? 'wwPer1000' : variant === 'ao' ? 'aoPer1000' : 'per1000'
+  const domainMax = variant === 'ww' ? 6 : variant === 'ao' ? 14 : 18
 
   useEffect(() => {
     setLoading(true)
@@ -59,8 +63,8 @@ export function KwadrantenGrafiek({ alleRegios }: KwadrantenGrafiekProps) {
         if (!nlResult) throw new Error("Nederland data ontbreekt")
 
         const nlData = nlResult.data
-        const nlFirst = nlData[0].per1000
-        const nlLast = nlData[nlData.length - 1].per1000
+        const nlFirst = nlData[0][dataKey]
+        const nlLast = nlData[nlData.length - 1][dataKey]
 
         const scatterData: ScatterData[] = []
 
@@ -68,8 +72,8 @@ export function KwadrantenGrafiek({ alleRegios }: KwadrantenGrafiekProps) {
           if (result.id === 'NL01') return
 
           const provData = result.data
-          const provFirst = provData[0].per1000
-          const provLast = provData[provData.length - 1].per1000
+          const provFirst = provData[0][dataKey]
+          const provLast = provData[provData.length - 1][dataKey]
 
           const deltaFirst = provFirst - nlFirst
           const deltaLast = provLast - nlLast
@@ -94,7 +98,7 @@ export function KwadrantenGrafiek({ alleRegios }: KwadrantenGrafiekProps) {
         setFout('Kon historische data niet inladen voor de kwadranten.')
         setLoading(false)
       })
-  }, [alleRegios])
+  }, [alleRegios, dataKey])
 
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
@@ -177,10 +181,10 @@ export function KwadrantenGrafiek({ alleRegios }: KwadrantenGrafiekProps) {
               <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
               
               {/* Achtergrond kleuren */}
-              <ReferenceArea x1={-18} x2={0} y1={0} y2={18} fill="#fff7ed" fillOpacity={0.6} /> {/* Top Left */}
-              <ReferenceArea x1={0} x2={18} y1={0} y2={18} fill="#fef2f2" fillOpacity={0.6} /> {/* Top Right */}
-              <ReferenceArea x1={-18} x2={0} y1={-18} y2={0} fill="#f0fdf4" fillOpacity={0.6} /> {/* Bottom Left */}
-              <ReferenceArea x1={0} x2={18} y1={-18} y2={0} fill="#eff6ff" fillOpacity={0.6} /> {/* Bottom Right */}
+              <ReferenceArea x1={-domainMax} x2={0} y1={0} y2={domainMax} fill="#fff7ed" fillOpacity={0.6} /> {/* Top Left */}
+              <ReferenceArea x1={0} x2={domainMax} y1={0} y2={domainMax} fill="#fef2f2" fillOpacity={0.6} /> {/* Top Right */}
+              <ReferenceArea x1={-domainMax} x2={0} y1={-domainMax} y2={0} fill="#f0fdf4" fillOpacity={0.6} /> {/* Bottom Left */}
+              <ReferenceArea x1={0} x2={domainMax} y1={-domainMax} y2={0} fill="#eff6ff" fillOpacity={0.6} /> {/* Bottom Right */}
 
               <ReferenceLine y={0} stroke="#475569" strokeWidth={2} />
               <ReferenceLine x={0} stroke="#475569" strokeWidth={2} />
@@ -189,7 +193,7 @@ export function KwadrantenGrafiek({ alleRegios }: KwadrantenGrafiekProps) {
                 type="number" 
                 dataKey="x" 
                 name="Startpositie" 
-                domain={[-18, 18]} 
+                domain={[-domainMax, domainMax]} 
                 tick={{ fill: '#64748b', fontSize: 12, fontWeight: 500 }}
                 axisLine={false}
                 tickLine={false}
@@ -199,7 +203,7 @@ export function KwadrantenGrafiek({ alleRegios }: KwadrantenGrafiekProps) {
                 type="number" 
                 dataKey="y" 
                 name="Eindpositie" 
-                domain={[-18, 18]} 
+                domain={[-domainMax, domainMax]} 
                 tick={{ fill: '#64748b', fontSize: 12, fontWeight: 500 }}
                 axisLine={false}
                 tickLine={false}

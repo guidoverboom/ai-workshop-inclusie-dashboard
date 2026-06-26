@@ -60,7 +60,7 @@ export function RegioTabel({
       <table className="w-full text-sm">
         <thead>
           <tr className="border-b border-slate-200">
-            {isTotaal && <th className="w-8 px-2 py-2"></th>}
+            <th className="w-8 px-2 py-2"></th>
             <Th k="regio" label="Provincie" />
             
             {isTotaal && (
@@ -95,23 +95,21 @@ export function RegioTabel({
             return (
               <tr
                 key={r.regio}
-                onClick={() => isTotaal && onToggleRegio && onToggleRegio(r.id)}
-                className={`border-b group transition-colors ${
-                  isTotaal ? 'cursor-pointer hover:bg-slate-50/80' : 'hover:bg-slate-50/40'
-                } ${isTotaal && isChecked ? 'bg-indigo-50/60' : ''} ${
+                onClick={() => onToggleRegio && onToggleRegio(r.id)}
+                className={`border-b group transition-colors cursor-pointer hover:bg-slate-50/80 ${
+                  isChecked ? 'bg-indigo-50/60' : ''
+                } ${
                   r.regio === 'Heel Nederland' ? 'border-slate-300 shadow-sm z-10 relative bg-slate-50/50' : 'border-slate-100'
                 }`}
               >
-                {isTotaal && (
-                  <td className="px-2 py-3 text-center">
-                    <input 
-                      type="checkbox" 
-                      checked={isChecked}
-                      onChange={() => {}} // afgehandeld via tr onClick
-                      className="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500 cursor-pointer pointer-events-none"
-                    />
-                  </td>
-                )}
+                <td className="px-2 py-3 text-center">
+                  <input 
+                    type="checkbox" 
+                    checked={isChecked}
+                    onChange={() => {}} // afgehandeld via tr onClick
+                    className="w-4 h-4 text-indigo-600 rounded border-slate-300 focus:ring-indigo-500 cursor-pointer pointer-events-none"
+                  />
+                </td>
                 <td className={`px-3 py-3 text-slate-800 ${r.regio === 'Heel Nederland' ? 'font-bold' : 'font-medium'}`}>
                   {r.regio}
                 </td>
