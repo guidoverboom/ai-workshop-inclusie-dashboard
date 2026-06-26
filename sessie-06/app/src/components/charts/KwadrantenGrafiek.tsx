@@ -73,15 +73,14 @@ export function KwadrantenGrafiek({ alleRegios }: KwadrantenGrafiekProps) {
 
           const deltaFirst = provFirst - nlFirst
           const deltaLast = provLast - nlLast
-          const trend = deltaLast - deltaFirst
 
           const regioInfo = alleRegios.find(r => r.id === result.id)
 
           scatterData.push({
             id: result.id,
             regio: regioInfo?.regio || result.id,
-            x: Number(trend.toFixed(2)),
-            y: Number(deltaLast.toFixed(2)),
+            x: Number(deltaFirst.toFixed(2)), // X-as = Start (2021)
+            y: Number(deltaLast.toFixed(2)),  // Y-as = Eind (2025)
             firstDelta: Number(deltaFirst.toFixed(2)),
             color: COLORS[(index - 1) % COLORS.length]
           })
@@ -108,15 +107,15 @@ export function KwadrantenGrafiek({ alleRegios }: KwadrantenGrafiekProps) {
           </p>
           <div className="space-y-2">
             <div>
-              <span className="text-slate-500 text-xs block uppercase tracking-wide">Huidige Positie (Y)</span>
+              <span className="text-slate-500 text-xs block uppercase tracking-wide">Positie Eind 2025 (Y)</span>
               <span className={`font-semibold ${dataPoint.y > 0 ? 'text-red-600' : 'text-emerald-600'}`}>
                 {dataPoint.y > 0 ? '+' : ''}{dataPoint.y.toLocaleString('nl-NL')} per 1.000 inw.
               </span>
             </div>
             <div>
-              <span className="text-slate-500 text-xs block uppercase tracking-wide">Trend sinds 2021 (X)</span>
+              <span className="text-slate-500 text-xs block uppercase tracking-wide">Positie Begin 2021 (X)</span>
               <span className={`font-semibold ${dataPoint.x > 0 ? 'text-orange-600' : 'text-blue-600'}`}>
-                {dataPoint.x > 0 ? '+' : ''}{dataPoint.x.toLocaleString('nl-NL')} (t.o.v. NL gem.)
+                {dataPoint.x > 0 ? '+' : ''}{dataPoint.x.toLocaleString('nl-NL')} per 1.000 inw.
               </span>
             </div>
           </div>
@@ -128,10 +127,11 @@ export function KwadrantenGrafiek({ alleRegios }: KwadrantenGrafiekProps) {
 
   const renderCustomizedLabel = (props: any) => {
     const { cx, cy, payload } = props
-    const dx = payload.x > 0 ? 8 : -8
-    const textAnchor = payload.x > 0 ? 'start' : 'end'
+    if (!payload || payload.x === undefined) return null
+    // Bij deze nieuwe assen staat de tekst beter iets vaker boven of onder de stip afh van kwadrant
+    const dy = payload.y > 0 ? -8 : 12
     return (
-      <text x={cx + dx} y={cy} dy={4} textAnchor={textAnchor} fill="#334155" fontSize={12} fontWeight={600}>
+      <text x={cx} y={cy} dy={dy} textAnchor="middle" fill="#334155" fontSize={11} fontWeight={600}>
         {payload.regio}
       </text>
     )
@@ -152,22 +152,22 @@ export function KwadrantenGrafiek({ alleRegios }: KwadrantenGrafiekProps) {
           <div className="absolute inset-0 pointer-events-none p-[60px] flex flex-col justify-between z-0">
             <div className="flex justify-between h-1/2">
               <div className="w-1/2 pl-12 pt-8">
-                <span className="text-sm font-bold text-blue-500/50 uppercase tracking-widest">De Inhaalslagers</span>
-                <p className="text-xs text-blue-500/40">Boven gemiddelde, dalende trend</p>
+                <span className="text-sm font-bold text-orange-500/50 uppercase tracking-widest">Gevallen / Waakzaam</span>
+                <p className="text-xs text-orange-500/40">Startte onder gem, eindigt bóven gem.</p>
               </div>
               <div className="w-1/2 text-right pr-4 pt-8">
                 <span className="text-sm font-bold text-red-500/50 uppercase tracking-widest">Structureel Belast</span>
-                <p className="text-xs text-red-500/40">Boven gemiddelde, stijgende trend</p>
+                <p className="text-xs text-red-500/40">Startte boven gem, eindigt bóven gem.</p>
               </div>
             </div>
             <div className="flex justify-between h-1/2 items-end">
               <div className="w-1/2 pl-12 pb-16">
-                <span className="text-sm font-bold text-emerald-500/50 uppercase tracking-widest">De Solide Basis</span>
-                <p className="text-xs text-emerald-500/40">Onder gemiddelde, dalende trend</p>
+                <span className="text-sm font-bold text-emerald-500/50 uppercase tracking-widest">Solide Basis</span>
+                <p className="text-xs text-emerald-500/40">Startte onder gem, eindigt ónder gem.</p>
               </div>
               <div className="w-1/2 text-right pr-4 pb-16">
-                <span className="text-sm font-bold text-orange-500/50 uppercase tracking-widest">De Waakzamen</span>
-                <p className="text-xs text-orange-500/40">Onder gemiddelde, stijgende trend</p>
+                <span className="text-sm font-bold text-blue-500/50 uppercase tracking-widest">De Inhaalslagers</span>
+                <p className="text-xs text-blue-500/40">Startte boven gem, eindigt ónder gem.</p>
               </div>
             </div>
           </div>
@@ -177,10 +177,10 @@ export function KwadrantenGrafiek({ alleRegios }: KwadrantenGrafiekProps) {
               <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
               
               {/* Achtergrond kleuren */}
-              <ReferenceArea x1={-15} x2={0} y1={0} y2={20} fill="#eff6ff" fillOpacity={0.6} /> 
-              <ReferenceArea x1={0} x2={15} y1={0} y2={20} fill="#fef2f2" fillOpacity={0.6} /> 
-              <ReferenceArea x1={-15} x2={0} y1={-20} y2={0} fill="#f0fdf4" fillOpacity={0.6} /> 
-              <ReferenceArea x1={0} x2={15} y1={-20} y2={0} fill="#fff7ed" fillOpacity={0.6} /> 
+              <ReferenceArea x1={-18} x2={0} y1={0} y2={18} fill="#fff7ed" fillOpacity={0.6} /> {/* Top Left */}
+              <ReferenceArea x1={0} x2={18} y1={0} y2={18} fill="#fef2f2" fillOpacity={0.6} /> {/* Top Right */}
+              <ReferenceArea x1={-18} x2={0} y1={-18} y2={0} fill="#f0fdf4" fillOpacity={0.6} /> {/* Bottom Left */}
+              <ReferenceArea x1={0} x2={18} y1={-18} y2={0} fill="#eff6ff" fillOpacity={0.6} /> {/* Bottom Right */}
 
               <ReferenceLine y={0} stroke="#475569" strokeWidth={2} />
               <ReferenceLine x={0} stroke="#475569" strokeWidth={2} />
@@ -188,17 +188,17 @@ export function KwadrantenGrafiek({ alleRegios }: KwadrantenGrafiekProps) {
               <XAxis 
                 type="number" 
                 dataKey="x" 
-                name="Trend" 
-                domain={[-15, 15]} 
+                name="Startpositie" 
+                domain={[-18, 18]} 
                 tick={{ fill: '#64748b', fontSize: 12, fontWeight: 500 }}
                 axisLine={false}
                 tickLine={false}
-                label={{ value: '← Verbetert sneller dan NL gem. (Trend) Verslechtert sneller dan NL gem. →', position: 'bottom', offset: 20, fill: '#64748b', fontSize: 13, fontWeight: 500 }}
+                label={{ value: '← Beter dan NL in 2021 | Slechter dan NL in 2021 →', position: 'bottom', offset: 20, fill: '#64748b', fontSize: 13, fontWeight: 500 }}
               />
               <YAxis 
                 type="number" 
                 dataKey="y" 
-                name="Positie" 
+                name="Eindpositie" 
                 domain={[-18, 18]} 
                 tick={{ fill: '#64748b', fontSize: 12, fontWeight: 500 }}
                 axisLine={false}
