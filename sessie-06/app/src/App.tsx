@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useDashboardData } from './hooks/useDashboardData'
 import { RegioTabel } from './components/tables/RegioTabel'
 import { VergelijkingsGrafiek } from './components/charts/VergelijkingsGrafiek'
+import { KwadrantenGrafiek } from './components/charts/KwadrantenGrafiek'
 
 function App() {
   const { data, error, loading } = useDashboardData()
@@ -66,7 +67,15 @@ function App() {
           </div>
         )}
 
-        {loading && !fout && <Laadscherm />}
+        {/* Loading screen omitted for brevity */}
+        {loading && !fout && (
+          <div className="flex h-64 items-center justify-center rounded-xl border border-slate-200 bg-white">
+            <div className="flex flex-col items-center">
+              <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-indigo-600"></div>
+              <p className="mt-4 text-sm text-slate-500">CBS-data ophalen...</p>
+            </div>
+          </div>
+        )}
 
         {data && (
           <>
@@ -131,7 +140,24 @@ function App() {
               </div>
             </section>
 
-            <footer className="pb-8 pt-2 text-center text-xs text-slate-400">
+            {/* Nieuwe sectie: Diepgaande Analyse */}
+            <section className="mt-8 pt-6 border-t border-slate-200">
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-slate-800">Diepgaande Analyse: Socioloog & Demograaf</h2>
+                <p className="text-sm text-slate-600 mt-1 max-w-3xl">
+                  In deze kwadrantengrafiek verdelen we de provincies op basis van hun structurele positie en hun trend sinds 2021. 
+                  Staat een stipje hoog? Dan heeft die provincie veel uitkeringen. Staat een stipje ver naar rechts? Dan verslechtert de situatie sneller dan gemiddeld.
+                </p>
+              </div>
+              <Card
+                title="Kwadrantenanalyse van de Inclusieve Arbeidsmarkt"
+                subtitle="Elke stip is een provincie. De Y-as is de huidige positie ten opzichte van het landelijk gemiddelde. De X-as toont de ontwikkeling (trend) sinds begin 2021."
+              >
+                <KwadrantenGrafiek alleRegios={data.regios} />
+              </Card>
+            </section>
+
+            <footer className="pb-8 pt-8 text-center text-xs text-slate-400">
               Live data: CBS StatLine Open Data (tabel 80794ned) ·
               Vite + React + Tailwind + Recharts
             </footer>
@@ -163,15 +189,6 @@ function Card({
         {action && <div>{action}</div>}
       </div>
       {children}
-    </div>
-  )
-}
-
-function Laadscherm() {
-  return (
-    <div className="flex flex-col items-center justify-center gap-3 py-24 text-slate-500">
-      <div className="h-8 w-8 animate-spin rounded-full border-4 border-slate-200 border-t-rijk-500" />
-      <p className="text-sm">Actuele cijfers ophalen bij CBS StatLine…</p>
     </div>
   )
 }
